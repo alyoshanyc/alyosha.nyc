@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 {:.prose__lead}
-Alyosha is an artist based in New York, working across painting, sculpture, photography, and the moving image.
+Alyosha is a photographer based in New York.
 
-His work favors sustained attention over spectacle. Focused series made slowly, with writing that grows up alongside them.
+He makes portraits and documentary work, in the studio and out on the street and the road, mostly on film. The pictures favor patience over spectacle: people met along the way, places caught in passing.
 
-For studio visits, available work, and press, please get in touch.
+For commissions, prints, and press, get in touch.

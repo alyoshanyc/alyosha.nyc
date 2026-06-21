@@ -36,7 +36,16 @@ Current projects: **Models** (with subprojects Anga, Lulu, Caitlin), **Jamaica**
    Your text here. Blank line between paragraphs. *Italics* and [links](https://example.com) work.
    ```
 
-Posts live in a folder per project under `_posts/` for tidiness, but the `project:` field is what actually ties a post to its project. `focus` sets where the thumbnail crops vertically when a face or subject sits near an edge: use `top`, `center` (the default), `bottom`, or a percentage such as `20%`.
+Posts live in a folder per project under `_posts/` for tidiness, but the `project:` field is what actually ties a post to its project.
+
+**`focus` (thumbnail framing).** Project thumbnails are cropped to a 4:3 box, so tall photos lose part of their height. `focus` controls which part stays. It is the vertical half of CSS `object-position`, so it accepts `top`, `center` (the default), `bottom`, or any percentage:
+
+- `0%` (= `top`) shows the very top of the photo; `100%` (= `bottom`) shows the very bottom.
+- **Lower** the percentage to reveal more of the **top** (use this when a head is getting clipped). **Raise** it to reveal more of the **bottom** (use this when the subject sits too low).
+- Fine-tune in small steps. Typical headshots land around `15%`-`45%`; a subject set low in the frame (foreground below, sky or foliage above) may want `55%`-`70%`. Percentages give pixel-level control, so prefer them over the keywords when a face is close to an edge.
+- Landscape photos (wider than 4:3) are not cropped vertically, so `focus` has no effect on them.
+
+(Single post pages always show the full, uncropped image; `focus` only affects the thumbnail.)
 
 The post appears on its project page and in that project's homepage row.
 
