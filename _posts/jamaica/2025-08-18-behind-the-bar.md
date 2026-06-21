@@ -5,6 +5,6 @@ date: 2025-08-18
 project: jamaica
 image: /assets/images/jamaica/jamaica-more-01.jpg
 caption: "Jamaica"
-focus: top
+focus: 35%
 ---
 A bartender in a white vest and silver chain, the shelves of bottles soft behind him.

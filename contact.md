@@ -4,6 +4,6 @@ title: Contact
 permalink: /contact/
 ---
 {:.prose__lead}
-For viewing appointments, available works, and press inquiries, please get in touch. We respond within two business days.
+Available for commissions: portraits, editorial, events, and travel. For bookings and prints, get in touch and I will reply within two business days.
 
-To request a private viewing, include the exhibition or artist you are interested in and a few times that suit you.
+When you write, include the kind of shoot you have in mind, rough dates and location, and any references that help.

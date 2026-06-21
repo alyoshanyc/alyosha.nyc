@@ -5,6 +5,6 @@ date: 2025-08-02
 project: jamaica
 image: /assets/images/jamaica/jamaica-more-17.jpg
 caption: "Jamaica"
-focus: top
+focus: 28%
 ---
 Drifting a mangrove channel, a plate of rice on the bench and a heron lifting off the bank.

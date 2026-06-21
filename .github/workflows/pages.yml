@@ -36,7 +36,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        # base_path is "" for a custom domain, or /<repo> for project pages —
+        # base_path is "" for a custom domain, or /<repo> for project pages;
         # configure-pages resolves it, so the build is correct either way.
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
