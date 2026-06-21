@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<article class="single wrap">
+	<header class="single__header">
+		<span class="single__date">{{ page.date | date: "%B %-d, %Y" }}</span>
+		<h1 class="single__title">{{ page.title }}</h1>
+	</header>
+
+	{% if page.image %}
+	<figure class="single__media">
+		<img class="single__img" src="{{ page.image | relative_url }}" alt="{{ page.caption | default: page.title }}">
+		{% if page.caption %}<figcaption class="single__caption">{{ page.caption }}</figcaption>{% endif %}
+	</figure>
+	{% endif %}
+
+	<div class="single__content">
+		{{ content }}
+	</div>
+
+	<footer class="single__footer">
+		{% assign project_meta = site.projects | where: "id", page.project | first %}
+		{% if project_meta %}
+		<a href="{{ '/projects/' | append: page.project | append: '/' | relative_url }}">&larr; {{ project_meta.title }}</a>
+		{% else %}
+		<a href="{{ '/' | relative_url }}">&larr; Home</a>
+		{% endif %}
+	</footer>
+</article>
