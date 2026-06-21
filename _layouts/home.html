@@ -1,0 +1,78 @@
+---
+layout: default
+---
+{% comment %} Static hero image — no text, no link. Set via `hero_image` in _config.yml. {% endcomment %}
+<section class="hero">
+	<div class="hero__media">
+		{% if site.hero_image %}
+			<img class="hero__img" src="{{ site.hero_image | relative_url }}" alt="">
+		{% else %}
+			<div class="hero__placeholder" aria-hidden="true"></div>
+		{% endif %}
+	</div>
+</section>
+
+<section class="statement">
+	<div class="wrap">
+		<div class="statement__lead">{{ content }}</div>
+	</div>
+</section>
+
+{% comment %} One teaser block per top-level project. Parent projects show
+   subproject covers; leaf projects show recent posts. {% endcomment %}
+{% for p in site.projects %}{% unless p.parent %}
+	{% assign subs = site.projects | where: "parent", p.id %}
+	{% if subs.size > 0 %}
+	{% comment %} ---- parent project: subproject cover tiles ---- {% endcomment %}
+	<section class="news">
+		<div class="wrap">
+			<div class="news__head">
+				<h2 class="news__heading">{{ p.title }}</h2>
+				<a class="news__all" href="{{ '/projects/' | append: p.id | append: '/' | relative_url }}">View all &rarr;</a>
+			</div>
+			<div class="news__grid">
+				{% for sub in subs %}
+				{% assign subposts = site.posts | where: "project", sub.id | sort: "date" | reverse %}
+				{% assign cover = subposts | where: "cover", true | first %}
+				{% unless cover %}{% assign cover = subposts | first %}{% endunless %}
+				<article class="news__item">
+					<a class="news__link" href="{{ '/projects/' | append: sub.id | append: '/' | relative_url }}">
+						{% if cover.image %}
+						<div class="news__media"><img class="news__img" src="{{ cover.image | relative_url }}" alt="" style="object-position: center {{ cover.focus | default: 'center' }};"></div>
+						{% endif %}
+						<h3 class="news__title">{{ sub.title }}</h3>
+					</a>
+				</article>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% else %}
+	{% comment %} ---- leaf project: recent posts ---- {% endcomment %}
+	{% assign items = site.posts | where: "project", p.id | sort: "date" | reverse %}
+	{% assign recent = items | slice: 0, site.project_teaser_count %}
+	{% if recent.size > 0 %}
+	<section class="news">
+		<div class="wrap">
+			<div class="news__head">
+				<h2 class="news__heading">{{ p.title }}</h2>
+				<a class="news__all" href="{{ '/projects/' | append: p.id | append: '/' | relative_url }}">View all &rarr;</a>
+			</div>
+			<div class="news__grid">
+				{% for item in recent %}
+				<article class="news__item">
+					<a class="news__link" href="{{ item.url | relative_url }}">
+						{% if item.image %}
+						<div class="news__media"><img class="news__img" src="{{ item.image | relative_url }}" alt="" style="object-position: center {{ item.focus | default: 'center' }};"></div>
+						{% endif %}
+						<span class="news__date">{{ item.date | date: "%b %-d, %Y" }}</span>
+						<h3 class="news__title">{{ item.title }}</h3>
+					</a>
+				</article>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
+	{% endif %}
+{% endunless %}{% endfor %}

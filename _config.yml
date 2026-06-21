@@ -1,0 +1,58 @@
+title: Alyosha
+tagline: Contemporary art in New York
+description: A contemporary art gallery in New York.
+# Set this to your final domain once DNS is pointed (used for absolute URLs in feeds/SEO).
+url: "https://alyosha.nyc"
+# If the site is served from a project subpath (e.g. user.github.io/repo), set baseurl: "/repo".
+# For an apex/custom domain leave it empty.
+baseurl: ""
+
+# Gallery contact details (edit here; used in footer + contact page)
+email: hello@alyosha.nyc
+location: New York, NY
+
+# Homepage hero image (any file in assets/images/)
+hero_image: /assets/images/hero-garden-statue.jpg
+
+# ---- Projects -------------------------------------------------------------
+# Add as many projects as you like, one entry per project. Each needs a unique
+# `id` (used in URLs and to tie posts to it) and a `title` (shown in the nav,
+# the project page, and the homepage). Rename a `title` here and it updates
+# everywhere. After adding a project entry, also add a one-line stub page
+# (copy an existing projects/<id>.md) so the project gets its own URL.
+# A project may set `parent:` to become a subproject of another project.
+# A parent project's page shows a tile per subproject, using that subproject's
+# `cover: true` post image (or its newest post) as the tile.
+projects:
+  - id: models
+    title: "Models"
+  - id: anga
+    title: "Anga"
+    parent: models
+  - id: lulu
+    title: "Lulu"
+    parent: models
+  - id: caitlin
+    title: "Caitlin"
+    parent: models
+  - id: jamaica
+    title: "Jamaica"
+  - id: nyc
+    title: "NYC"
+
+# Build settings
+markdown: kramdown
+timezone: America/New_York
+# Posts live in _posts/ and are tied to a project via `project:` in their front matter.
+permalink: /posts/:title/
+
+# How many recent posts each project shows on the homepage
+project_teaser_count: 3
+
+# Exclude non-site files from the build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .jekyll-cache/

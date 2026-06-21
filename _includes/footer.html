@@ -1,0 +1,14 @@
+<footer class="site-footer">
+	<div class="site-footer__inner">
+		<div class="site-footer__col">
+			<span class="site-footer__brand">{{ site.title }}</span>
+			<p class="site-footer__meta">Contemporary art &middot; {{ site.location }}</p>
+		</div>
+		<div class="site-footer__col">
+			<a href="mailto:{{ site.email }}">{{ site.email }}</a>
+		</div>
+		<div class="site-footer__col site-footer__legal">
+			&copy; {{ site.time | date: "%Y" }} {{ site.title }}
+		</div>
+	</div>
+</footer>
