@@ -12,12 +12,6 @@ layout: default
 	</div>
 </section>
 
-<section class="statement">
-	<div class="wrap">
-		<div class="statement__lead">{{ content }}</div>
-	</div>
-</section>
-
 {% comment %} One teaser block per top-level project. Parent projects show
    subproject covers; leaf projects show recent posts. {% endcomment %}
 {% for p in site.projects %}{% unless p.parent %}

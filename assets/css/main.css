@@ -24,7 +24,7 @@ body {
 	margin: 0;
 	color: var(--ink);
 	background: var(--paper);
-	font-family: var(--sans);
+	font-family: var(--serif);
 	font-size: 16px;
 	line-height: 1.55;
 	-webkit-font-smoothing: antialiased;
@@ -51,9 +51,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	backdrop-filter: saturate(180%) blur(8px);
 	border-bottom: 1px solid var(--line);
 }
+/* Full-bleed: brand hugs the far-left of the window, menu the far-right,
+   regardless of screen width (only a small fixed padding off each edge). */
 .site-header__inner {
-	max-width: var(--max); margin-inline: auto;
-	padding-inline: var(--gutter);
+	width: 100%;
+	padding-inline: clamp(16px, 2.5vw, 28px);
 	height: var(--header-h);
 	display: flex; align-items: center; justify-content: space-between;
 }
@@ -64,10 +66,10 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .site-brand:hover { text-decoration: none; }
 
 .site-nav .menu {
-	list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0;
+	list-style: none; display: flex; gap: 2.4rem; margin: 0; padding: 0;
 }
 .site-nav a {
-	text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem;
+	font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.01em;
 }
 
 .nav-toggle {
@@ -80,14 +82,14 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 
 /* Hero ------------------------------------------------------- */
-/* Fills the viewport below the sticky header: on load the visitor sees only
-   the header + this image until they scroll. */
+/* The image always spans the full window width and keeps its aspect ratio, so
+   the whole frame is shown uncropped. If that makes it taller than the screen,
+   the visitor scrolls down to see the rest. */
 .hero { position: relative; }
 .hero__media { width: 100%; }
-.hero__img,
-.hero__placeholder { width: 100%; height: calc(100svh - var(--header-h)); object-fit: cover; }
+.hero__img { width: 100%; height: auto; display: block; }
+.hero__placeholder { width: 100%; height: calc(100svh - var(--header-h)); }
 @supports not (height: 100svh) {
-	.hero__img,
 	.hero__placeholder { height: calc(100vh - var(--header-h)); }
 }
 .hero__placeholder {
@@ -130,10 +132,13 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .news__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
 .news__heading { font-family: var(--serif); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2rem); margin: 0; }
 .news__all { text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; }
-.news__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); }
+/* Masonry via CSS columns: whole frames, never cropped, mixed orientations
+   flow into aligned columns. */
+.news__grid { column-count: 3; column-gap: clamp(20px, 3vw, 40px); }
+.news__item { break-inside: avoid; margin-bottom: clamp(20px, 3vw, 40px); }
 .news__link:hover { text-decoration: none; }
-.news__media { overflow: hidden; aspect-ratio: 4 / 3; margin-bottom: .9rem; background: #f3f3f3; }
-.news__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.news__media { overflow: hidden; margin-bottom: .9rem; background: #f3f3f3; }
+.news__img { display: block; width: 100%; height: auto; object-fit: contain; transition: transform .5s ease; }
 .news__link:hover .news__img { transform: scale(1.03); }
 .news__date { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; color: var(--muted); }
 .news__title { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; line-height: 1.25; margin: .35rem 0 0; }
@@ -154,8 +159,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .single__content p { margin: 0 0 1.4em; }
 .single__footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .85rem; }
 
-@media (max-width: 800px) {
-	.news__grid { grid-template-columns: 1fr; gap: 2rem; }
+@media (max-width: 1000px) {
+	.news__grid { column-count: 2; }
+}
+@media (max-width: 600px) {
+	.news__grid { column-count: 1; }
 }
 
 /* Footer ----------------------------------------------------- */
