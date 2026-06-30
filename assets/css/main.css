@@ -12,8 +12,11 @@
 	--max: 1320px;
 	--gutter: clamp(20px, 5vw, 64px);
 	--header-h: 58px;
-	--serif: "Times New Roman", Times, Georgia, serif;
-	--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+	/* Mulish — free near-match for Avenir (the face David Zwirner uses), loaded
+	   as a webfont so it renders identically on every device. Falls through to
+	   system Avenir Next / Helvetica if the webfont fails. */
+	--sans: "Mulish", "Avenir Next", "Avenir", Roboto, "Helvetica Neue", Helvetica, sans-serif;
+	--serif: var(--sans);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -24,9 +27,10 @@ body {
 	margin: 0;
 	color: var(--ink);
 	background: var(--paper);
-	font-family: var(--serif);
-	font-size: 16px;
-	line-height: 1.55;
+	font-family: var(--sans);
+	font-size: 19px;
+	font-weight: 500;
+	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
@@ -69,7 +73,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	list-style: none; display: flex; gap: 2.4rem; margin: 0; padding: 0;
 }
 .site-nav a {
-	font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.01em;
+	font-family: var(--sans); font-weight: 600; font-size: 1.3rem; letter-spacing: 0.02em;
 }
 
 .nav-toggle {
@@ -86,7 +90,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
    the whole frame is shown uncropped. If that makes it taller than the screen,
    the visitor scrolls down to see the rest. */
 .hero { position: relative; }
-.hero__media { width: 100%; }
+/* Small white margin down each side so the image sits inset, not edge-to-edge. */
+.hero__media { width: 100%; padding-inline: clamp(12px, 2vw, 28px); }
 .hero__img { width: 100%; height: auto; display: block; }
 .hero__placeholder { width: 100%; height: calc(100svh - var(--header-h)); }
 @supports not (height: 100svh) {
