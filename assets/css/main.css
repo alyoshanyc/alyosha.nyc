@@ -53,7 +53,6 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	position: sticky; top: 0; z-index: 100;
 	background: rgba(255,255,255,0.92);
 	backdrop-filter: saturate(180%) blur(8px);
-	border-bottom: 1px solid var(--line);
 }
 /* Full-bleed: brand hugs the far-left of the window, menu the far-right,
    regardless of screen width (only a small fixed padding off each edge). */
@@ -64,8 +63,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	display: flex; align-items: center; justify-content: space-between;
 }
 .site-brand {
-	font-family: var(--serif);
-	font-size: 1.5rem; letter-spacing: 0.02em;
+	font-family: var(--sans); font-weight: 700;
+	font-size: clamp(1.75rem, 3.2vw, 2.25rem); letter-spacing: 0.01em;
 }
 .site-brand:hover { text-decoration: none; }
 
@@ -73,7 +72,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	list-style: none; display: flex; gap: 2.4rem; margin: 0; padding: 0;
 }
 .site-nav a {
-	font-family: var(--sans); font-weight: 600; font-size: 1.3rem; letter-spacing: 0.02em;
+	font-family: var(--sans); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.04em;
 }
 
 .nav-toggle {
