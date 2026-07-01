@@ -132,10 +132,12 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .post-list__title { font-family: var(--serif); font-weight: 400; }
 
 /* News (home teaser + archive) ------------------------------- */
-.news { padding-block: clamp(40px, 7vw, 100px); border-top: 1px solid var(--line); }
-.news__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
-.news__heading { font-family: var(--serif); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2rem); margin: 0; }
-.news__all { text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; }
+/* Minimal, whitespace-driven sections: small uppercase section labels, no
+   divider lines, sans captions under each image. */
+.news { padding-block: clamp(48px, 7vw, 110px); }
+.news__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: clamp(1.5rem, 3vw, 2.75rem); }
+.news__heading { font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; margin: 0; }
+.news__all { text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; color: var(--muted); }
 /* Masonry via CSS columns: whole frames, never cropped, mixed orientations
    flow into aligned columns. */
 .news__grid { column-count: 3; column-gap: clamp(20px, 3vw, 40px); }
@@ -145,7 +147,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .news__img { display: block; width: 100%; height: auto; object-fit: contain; transition: transform .5s ease; }
 .news__link:hover .news__img { transform: scale(1.03); }
 .news__date { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; color: var(--muted); }
-.news__title { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; line-height: 1.25; margin: .35rem 0 0; }
+.news__title { font-weight: 600; font-size: 1rem; line-height: 1.3; letter-spacing: .01em; margin: .5rem 0 0; }
 
 /* Breadcrumb (subproject -> parent) -------------------------- */
 .crumb { text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; color: var(--muted); margin: 0 0 .6rem; }
@@ -183,15 +185,24 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* Responsive ------------------------------------------------- */
 @media (max-width: 800px) {
-	.nav-toggle { display: block; }
+	.nav-toggle { display: block; position: relative; z-index: 110; }
+	/* Full-screen overlay menu: hamburger opens a full-page takeover.
+	   Explicit viewport size (not inset:0) because the header's backdrop-filter
+	   makes fixed descendants anchor to the header box, not the viewport. */
 	.site-nav {
-		position: fixed; inset: var(--header-h) 0 auto 0;
-		background: var(--paper); border-bottom: 1px solid var(--line);
-		transform: translateY(-120%); transition: transform .3s ease;
-		padding: 1rem var(--gutter) 2rem;
+		position: fixed; top: 0; left: 0; z-index: 90;
+		width: 100vw; height: 100vh; height: 100dvh;
+		background: var(--paper);
+		display: flex; align-items: center; justify-content: center;
+		opacity: 0; visibility: hidden;
+		transition: opacity .3s ease, visibility .3s ease;
 	}
-	.site-nav.is-open { transform: translateY(0); }
-	.site-nav .menu { flex-direction: column; gap: 1.2rem; }
+	.site-nav.is-open { opacity: 1; visibility: visible; }
+	.site-nav .menu { flex-direction: column; align-items: center; gap: 1.75rem; }
+	.site-nav a { font-size: 1.75rem; font-weight: 600; letter-spacing: .01em; }
+	/* Hamburger morphs into an X while the menu is open. */
+	.nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+	.nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 	.contact__grid { grid-template-columns: 1fr; }
 	.site-footer__inner { grid-template-columns: 1fr; }
 	.site-footer__legal { text-align: left; }
