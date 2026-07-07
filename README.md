@@ -77,4 +77,21 @@ bundle exec jekyll serve --livereload    # http://localhost:4000
 
 ## Deploy
 
-Pushing to `main` triggers `.github/workflows/pages.yml`, which builds the site with Bundler and deploys it to GitHub Pages. (Repo setting: **Settings → Pages → Source: GitHub Actions**.) The custom domain `alyosha.nyc` is set by the `CNAME` file; point the domain's DNS at GitHub Pages to make it live.
+Pushing to `main` triggers `.github/workflows/pages.yml`, which builds the site with Bundler and deploys it to GitHub Pages. (Repo setting: **Settings → Pages → Source: GitHub Actions**.)
+
+## Custom domain (alyosha.nyc)
+
+Because the site deploys through GitHub Actions, the `CNAME` file in this repo does not attach the domain by itself. The domain is linked in two places:
+
+1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). Once DNS resolves, check **Enforce HTTPS** so GitHub provisions the certificate.
+2. **DNS (GoDaddy):** point the domain at GitHub Pages with these records:
+
+   | Type  | Name | Value               |
+   |-------|------|---------------------|
+   | A     | @    | 185.199.108.153     |
+   | A     | @    | 185.199.109.153     |
+   | A     | @    | 185.199.110.153     |
+   | A     | @    | 185.199.111.153     |
+   | CNAME | www  | alyoshanyc.github.io |
+
+   Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (should return the four IPs above).
