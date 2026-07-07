@@ -2,9 +2,22 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% if page.project_id %}{% assign project_meta = site.projects | where: "id", page.project_id | first %}{% endif %}
-	<title>{% if project_meta %}{{ project_meta.title }} &middot; {{ site.title }}{% elsif page.title and page.url != "/" %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }} &middot; {{ site.tagline }}{% endif %}</title>
-	<meta name="description" content="{{ page.description | default: site.description }}">
+	{% capture page_title %}{% if project_meta %}{{ project_meta.title }} &middot; {{ site.title }}{% elsif page.title and page.url != "/" %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }} &middot; {{ site.tagline }}{% endif %}{% endcapture %}
+	{% assign page_description = page.description | default: site.description %}
+	{% assign share_image = page.image | default: site.hero_image %}
+	<title>{{ page_title }}</title>
+	<meta name="description" content="{{ page_description }}">
 	<link rel="canonical" href="{{ page.url | absolute_url }}">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="{{ site.title }}">
+	<meta property="og:title" content="{{ page_title }}">
+	<meta property="og:description" content="{{ page_description }}">
+	<meta property="og:url" content="{{ page.url | absolute_url }}">
+	<meta property="og:image" content="{{ share_image | absolute_url }}">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="{{ page_title }}">
+	<meta name="twitter:description" content="{{ page_description }}">
+	<meta name="twitter:image" content="{{ share_image | absolute_url }}">
 	<link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
 	<link rel="apple-touch-icon" href="{{ '/favicon.ico' | relative_url }}">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
