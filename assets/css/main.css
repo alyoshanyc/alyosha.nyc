@@ -14,10 +14,10 @@
 	/* Tall header band (à la davidzwirner.com): the wordmark centers in it, so
 	   this one value sets the whitespace above and below the brand. */
 	--header-h: clamp(64px, 7vw, 88px);
-	/* Mulish — free near-match for Avenir (the face David Zwirner uses), loaded
-	   as a webfont so it renders identically on every device. Falls through to
-	   system Avenir Next / Helvetica if the webfont fails. */
-	--sans: "Mulish", "Avenir Next", "Avenir", Roboto, "Helvetica Neue", Helvetica, sans-serif;
+	/* Host Grotesk — contemporary grotesque, loaded as a webfont so it renders
+	   identically on every device. Falls through to system Avenir Next /
+	   Helvetica if the webfont fails. */
+	--sans: "Host Grotesk", "Avenir Next", "Avenir", Roboto, "Helvetica Neue", Helvetica, sans-serif;
 	--serif: var(--sans);
 }
 
@@ -65,7 +65,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	display: flex; align-items: center; justify-content: space-between;
 }
 .site-brand {
-	font-family: var(--sans); font-weight: 500;
+	font-family: var(--sans); font-weight: 350;
 	font-size: clamp(1.75rem, 3.2vw, 2.25rem); letter-spacing: 0.01em;
 }
 .site-brand:hover { text-decoration: none; }
@@ -74,7 +74,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	list-style: none; display: flex; gap: 2.4rem; margin: 0; padding: 0;
 }
 .site-nav a {
-	font-family: var(--sans); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.04em;
+	font-family: var(--sans); font-weight: 400; font-size: 0.9rem; letter-spacing: 0.04em;
 }
 
 .nav-toggle {
@@ -233,7 +233,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	}
 	.site-nav.is-open { opacity: 1; visibility: visible; }
 	.site-nav .menu { flex-direction: column; align-items: center; gap: 1.75rem; }
-	.site-nav a { font-size: 1.75rem; font-weight: 600; letter-spacing: .01em; }
+	.site-nav a { font-size: 1.75rem; font-weight: 400; letter-spacing: .01em; }
 	/* Hamburger morphs into an X while the menu is open. */
 	.nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 	.nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
