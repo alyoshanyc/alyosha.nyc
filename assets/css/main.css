@@ -63,10 +63,14 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	padding-inline: clamp(16px, 2.5vw, 28px);
 	height: var(--header-h);
 	display: flex; align-items: center; justify-content: space-between;
+	/* Lift the centerline a touch: all-caps wordmark has no descenders, so
+	   dead-center reads as too much air above. Half of this value is the lift. */
+	padding-bottom: clamp(8px, 1vw, 12px);
 }
 .site-brand {
 	font-family: var(--sans); font-weight: 350;
 	font-size: clamp(1.75rem, 3.2vw, 2.25rem); letter-spacing: 0.01em;
+	text-transform: uppercase;
 }
 .site-brand:hover { text-decoration: none; }
 
@@ -136,13 +140,13 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* Home galleries grid ---------------------------------------- */
 /* Two landscape tiles per row, near full-bleed: the grid spans the window
    with the same small side margins as the hero. */
-.galleries { padding-block: clamp(72px, 10vw, 160px) clamp(40px, 6vw, 96px); }
+.galleries { padding-block: clamp(64px, 9vw, 144px) clamp(40px, 6vw, 96px); }
 .galleries__grid {
 	width: 100%;
 	padding-inline: clamp(8px, 1.2vw, 16px);
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: clamp(40px, 5.5vw, 88px) clamp(24px, 3.5vw, 52px);
+	gap: clamp(32px, 4.5vw, 72px) clamp(48px, 6.5vw, 104px);
 }
 .gallery-card:hover { text-decoration: none; }
 /* Landscape crop: every tile is the same 3:2 frame regardless of the source
