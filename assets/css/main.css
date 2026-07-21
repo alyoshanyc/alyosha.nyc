@@ -153,7 +153,24 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .gallery-card:hover { text-decoration: none; }
 /* Landscape crop: every tile is the same 3:2 frame regardless of the source
    image's orientation; `focus` (object-position) picks the visible band. */
-.gallery-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #f3f3f3; }
+.gallery-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #f3f3f3; position: relative; }
+/* Hover state on clickable tiles: dark translucent veil with a centered label.
+   Scoped to a.gallery-card so the "coming soon" placeholder (a div) stays inert.
+   text-indent offsets the trailing letter-space so the label centers optically. */
+a.gallery-card, a.news__link { cursor: pointer; }
+a.gallery-card .gallery-card__media::after,
+a.news__link .news__media::after {
+	content: "View";
+	position: absolute; inset: 0;
+	display: flex; align-items: center; justify-content: center;
+	background: rgba(0, 0, 0, 0.75);
+	color: #fff;
+	font-size: 0.8rem; font-weight: 400;
+	letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase;
+	opacity: 0; transition: opacity 0.25s ease;
+}
+a.gallery-card:hover .gallery-card__media::after,
+a.news__link:hover .news__media::after { opacity: 1; }
 .gallery-card__img {
 	width: 100%; height: 100%; object-fit: cover;
 	transition: transform .5s ease;
@@ -183,7 +200,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .news__grid { column-count: 3; column-gap: clamp(20px, 3vw, 40px); }
 .news__item { break-inside: avoid; margin-bottom: clamp(20px, 3vw, 40px); }
 .news__link:hover { text-decoration: none; }
-.news__media { overflow: hidden; margin-bottom: .9rem; background: #f3f3f3; }
+.news__media { overflow: hidden; margin-bottom: .9rem; background: #f3f3f3; position: relative; }
 .news__img { display: block; width: 100%; height: auto; object-fit: contain; transition: transform .5s ease; }
 .news__link:hover .news__img { transform: scale(1.03); }
 .news__date { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; color: var(--muted); }
