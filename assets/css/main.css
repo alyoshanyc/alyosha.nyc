@@ -94,7 +94,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* The image always spans the full window width and keeps its aspect ratio, so
    the whole frame is shown uncropped. If that makes it taller than the screen,
    the visitor scrolls down to see the rest. */
-.hero { position: relative; padding-top: clamp(12px, 1.6vw, 26px); }
+/* No top padding: the image's top edge borders the header band exactly, so
+   scrolling slides it straight under the navbar with no whitespace gap. */
+.hero { position: relative; }
 /* Small white margin down each side so the image sits inset, not edge-to-edge. */
 .hero__media { width: 100%; padding-inline: clamp(8px, 1.2vw, 16px); }
 .hero__img { width: 100%; height: auto; display: block; }
