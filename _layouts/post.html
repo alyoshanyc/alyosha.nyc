@@ -19,11 +19,6 @@ layout: default
 	</div>
 
 	<footer class="single__footer">
-		{% assign project_meta = site.projects | where: "id", page.project | first %}
-		{% if project_meta %}
-		<a href="{{ '/projects/' | append: page.project | append: '/' | relative_url }}">&larr; {{ project_meta.title }}</a>
-		{% else %}
 		<a href="{{ '/' | relative_url }}">&larr; Home</a>
-		{% endif %}
 	</footer>
 </article>
