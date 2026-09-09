@@ -1,48 +1,46 @@
 ---
 layout: default
 ---
-{% comment %} Static hero image, no text, no link. Set via `hero_image` in _config.yml. {% endcomment %}
-<section class="hero">
-	<div class="hero__media">
-		{% if site.hero_image %}
-			<img class="hero__img" src="{{ site.hero_image | relative_url }}" alt="">
-		{% else %}
-			<div class="hero__placeholder" aria-hidden="true"></div>
-		{% endif %}
-	</div>
-</section>
-
-{% comment %} One landscape tile per top-level project, two per row, plus a
-   placeholder tile for a future gallery. Each tile uses the project's
-   `cover: true` post image (subproject posts included), or its newest post. {% endcomment %}
-<section class="galleries">
-	<div class="galleries__grid">
-		{% for p in site.projects %}{% unless p.parent %}
-		{% assign subs = site.projects | where: "parent", p.id %}
-		{% if subs.size > 0 %}
-			{% assign pool = "" | split: "" %}
-			{% for sub in subs %}
-				{% assign subposts = site.posts | where: "project", sub.id %}
-				{% assign pool = pool | concat: subposts %}
-			{% endfor %}
-		{% else %}
-			{% assign pool = site.posts | where: "project", p.id %}
-		{% endif %}
-		{% assign pool = pool | sort: "date" | reverse %}
-		{% assign cover = pool | where: "cover", true | first %}
-		{% unless cover %}{% assign cover = pool | first %}{% endunless %}
-		<a class="gallery-card" href="{{ '/projects/' | append: p.id | append: '/' | relative_url }}">
-			<div class="gallery-card__media">
-				{% if cover.image %}
-				<img class="gallery-card__img" src="{{ cover.image | relative_url }}" alt="" style="object-position: center {{ cover.focus | default: 'center' }};">
-				{% endif %}
-			</div>
-			<h2 class="gallery-card__title">{{ p.title }}</h2>
+{% comment %} Wing Shya-style photo stream. Curation lives in _data/gallery.yml:
+   four named columns of bare image filenames, shown verbatim on desktop
+   (4 columns). The markup below flattens them row-major (col1[0], col2[0],
+   col3[0], col4[0], col1[1], ...) so narrower layouts re-deal that sequence
+   round-robin into 3, 2, or 1 columns (see assets/js/gallery.js). Each item
+   keeps its home column in data-col so the 4-column view matches the YAML
+   exactly even when columns are unequal lengths. {% endcomment %}
+{% assign c1 = site.data.gallery.column01 %}
+{% assign c2 = site.data.gallery.column02 %}
+{% assign c3 = site.data.gallery.column03 %}
+{% assign c4 = site.data.gallery.column04 %}
+{% assign max = c1.size %}
+{% if c2.size > max %}{% assign max = c2.size %}{% endif %}
+{% if c3.size > max %}{% assign max = c3.size %}{% endif %}
+{% if c4.size > max %}{% assign max = c4.size %}{% endif %}
+<section class="stream" id="stream">
+	{% for row in (1..max) %}
+	{% assign ridx = forloop.index0 %}
+	{% for cn in (1..4) %}
+	{% case cn %}
+	{% when 1 %}{% assign col = c1 %}
+	{% when 2 %}{% assign col = c2 %}
+	{% when 3 %}{% assign col = c3 %}
+	{% else %}{% assign col = c4 %}
+	{% endcase %}
+	{% assign fn = col[ridx] %}
+	{% if fn %}
+	{% assign post = site.posts | where_exp: "p", "p.image contains fn" | first %}
+	{% if post %}
+	{% assign dims = site.data.image_dims[fn] %}
+	<div class="stream__item" data-col="{{ cn }}">
+		<a class="stream__link" href="{{ post.url | relative_url }}">
+			<img class="stream__img" src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}"
+				{% if dims %}width="{{ dims.width }}" height="{{ dims.height }}"{% endif %}
+				{% if row == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}>
 		</a>
-		{% endunless %}{% endfor %}
-		<div class="gallery-card gallery-card--placeholder" aria-hidden="true">
-			<div class="gallery-card__media"></div>
-			<h2 class="gallery-card__title">Coming soon</h2>
-		</div>
 	</div>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+	{% endfor %}
 </section>
+<script src="{{ '/assets/js/gallery.js' | relative_url }}"></script>

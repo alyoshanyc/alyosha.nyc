@@ -90,23 +90,39 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	transition: transform .25s ease, opacity .25s ease;
 }
 
-/* Hero ------------------------------------------------------- */
-/* The image always spans the full window width and keeps its aspect ratio, so
-   the whole frame is shown uncropped. If that makes it taller than the screen,
-   the visitor scrolls down to see the rest. */
-/* No top padding: the image's top edge borders the header band exactly, so
-   scrolling slides it straight under the navbar with no whitespace gap. */
-.hero { position: relative; }
-/* Small white margin down each side so the image sits inset, not edge-to-edge. */
-.hero__media { width: 100%; padding-inline: clamp(8px, 1.2vw, 16px); }
-.hero__img { width: 100%; height: auto; display: block; }
-.hero__placeholder { width: 100%; height: calc(100svh - var(--header-h)); }
-@supports not (height: 100svh) {
-	.hero__placeholder { height: calc(100vh - var(--header-h)); }
+/* Home photo stream ------------------------------------------ */
+/* Curated multi-column stream (see _data/gallery.yml). Items render flat and
+   stacked (the 1-column/no-JS layout); gallery.js deals them into 2-4 columns
+   at wider breakpoints. Each column stacks independently, so rows drift out
+   of alignment as image heights differ - that stagger is the design. */
+.stream {
+	padding-inline: clamp(8px, 1.2vw, 16px);
+	padding-bottom: clamp(8px, 1.2vw, 16px);
 }
-.hero__placeholder {
-	background: linear-gradient(135deg, #f3f3f3 0%, #e9e9e9 50%, #f6f6f6 100%);
+.stream--cols { display: flex; align-items: flex-start; gap: 4px; }
+.stream__col {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
+/* Pre-deal (and no-JS) fallback: flat items stack with the same gutter. */
+.stream:not(.stream--cols) .stream__item { margin-bottom: 4px; }
+.stream__link { display: block; position: relative; cursor: pointer; }
+.stream__img { display: block; width: 100%; height: auto; }
+/* Same hover idiom as the rest of the site: dark veil, centered label. */
+.stream__link::after {
+	content: "View";
+	position: absolute; inset: 0;
+	display: flex; align-items: center; justify-content: center;
+	background: rgba(0, 0, 0, 0.75);
+	color: #fff;
+	font-size: 0.8rem; font-weight: 400;
+	letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase;
+	opacity: 0; transition: opacity 0.25s ease;
+}
+.stream__link:hover::after { opacity: 1; }
 
 /* Statement -------------------------------------------------- */
 .statement { padding: clamp(40px, 6vw, 84px) 0; border-bottom: 1px solid var(--line); }
@@ -139,26 +155,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .post-list__item { padding-block: 2rem; border-bottom: 1px solid var(--line); }
 .post-list__title { font-family: var(--serif); font-weight: 400; }
 
-/* Home galleries grid ---------------------------------------- */
-/* Two landscape tiles per row, near full-bleed: the grid spans the window
-   with the same small side margins as the hero. */
-.galleries { padding-block: clamp(64px, 9vw, 144px) clamp(40px, 6vw, 96px); }
-.galleries__grid {
-	width: 100%;
-	padding-inline: clamp(8px, 1.2vw, 16px);
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: clamp(32px, 4.5vw, 72px) clamp(48px, 6.5vw, 104px);
-}
-.gallery-card:hover { text-decoration: none; }
-/* Landscape crop: every tile is the same 3:2 frame regardless of the source
-   image's orientation; `focus` (object-position) picks the visible band. */
-.gallery-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #f3f3f3; position: relative; }
 /* Hover state on clickable tiles: dark translucent veil with a centered label.
-   Scoped to a.gallery-card so the "coming soon" placeholder (a div) stays inert.
    text-indent offsets the trailing letter-space so the label centers optically. */
-a.gallery-card, a.news__link { cursor: pointer; }
-a.gallery-card .gallery-card__media::after,
+a.news__link { cursor: pointer; }
 a.news__link .news__media::after {
 	content: "View";
 	position: absolute; inset: 0;
@@ -169,24 +168,7 @@ a.news__link .news__media::after {
 	letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase;
 	opacity: 0; transition: opacity 0.25s ease;
 }
-a.gallery-card:hover .gallery-card__media::after,
 a.news__link:hover .news__media::after { opacity: 1; }
-.gallery-card__img {
-	width: 100%; height: 100%; object-fit: cover;
-	transition: transform .5s ease;
-}
-.gallery-card:hover .gallery-card__img { transform: scale(1.03); }
-.gallery-card__title {
-	font-weight: 600; text-transform: uppercase; letter-spacing: .12em;
-	font-size: .8rem; margin: .8rem 0 0;
-}
-.gallery-card--placeholder .gallery-card__media {
-	background: linear-gradient(135deg, #f3f3f3 0%, #e9e9e9 50%, #f6f6f6 100%);
-}
-.gallery-card--placeholder .gallery-card__title { color: var(--muted); }
-@media (max-width: 700px) {
-	.galleries__grid { grid-template-columns: 1fr; }
-}
 
 /* News (home teaser + archive) ------------------------------- */
 /* Minimal, whitespace-driven sections: small uppercase section labels, no

@@ -1,0 +1,143 @@
+# Generated: intrinsic pixel dimensions per gallery image filename.
+# Regenerate with scripts/generate-image-dims.py after adding images.
+jamaica-cinestill-01.jpg:
+  width: 1800
+  height: 1193
+jamaica-cinestill-02.jpg:
+  width: 1800
+  height: 1193
+jamaica-cinestill-03.jpg:
+  width: 1193
+  height: 1800
+jamaica-ilford-01.jpg:
+  width: 1800
+  height: 1193
+jamaica-ilford-02.jpg:
+  width: 1800
+  height: 1193
+jamaica-ilford-03.jpg:
+  width: 1800
+  height: 1193
+jamaica-kodak-01.jpg:
+  width: 1800
+  height: 1193
+jamaica-kodak-02.jpg:
+  width: 1193
+  height: 1800
+jamaica-kodak-03.jpg:
+  width: 1800
+  height: 1193
+jamaica-more-01.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-02.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-03.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-04.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-05.jpg:
+  width: 1800
+  height: 1193
+jamaica-more-06.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-07.jpg:
+  width: 1800
+  height: 1193
+jamaica-more-08.jpg:
+  width: 1193
+  height: 1800
+jamaica-more-09.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-10.jpg:
+  width: 1286
+  height: 1800
+jamaica-more-11.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-12.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-13.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-14.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-15.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-16.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-17.jpg:
+  width: 1350
+  height: 1800
+jamaica-more-18.jpg:
+  width: 1350
+  height: 1800
+anga-01.jpg:
+  width: 1193
+  height: 1800
+anga-02.jpg:
+  width: 1193
+  height: 1800
+anga-03.jpg:
+  width: 1193
+  height: 1800
+anga-04.jpg:
+  width: 1201
+  height: 1800
+caitlin-01.jpg:
+  width: 1201
+  height: 1800
+caitlin-02.jpg:
+  width: 1201
+  height: 1800
+caitlin-03.jpg:
+  width: 1201
+  height: 1800
+caitlin-04.jpg:
+  width: 1201
+  height: 1800
+caitlin-05.jpg:
+  width: 1201
+  height: 1800
+lulu-01.jpg:
+  width: 1201
+  height: 1800
+lulu-02.jpg:
+  width: 1201
+  height: 1800
+lulu-03.jpg:
+  width: 1201
+  height: 1800
+lulu-04.jpg:
+  width: 1201
+  height: 1800
+lulu-05.jpg:
+  width: 1201
+  height: 1800
+nyc-01.jpg:
+  width: 1193
+  height: 1800
+nyc-02.jpg:
+  width: 1800
+  height: 1193
+nyc-03.jpg:
+  width: 1800
+  height: 1193
+nyc-04.jpg:
+  width: 1193
+  height: 1800
+nyc-05.jpg:
+  width: 1800
+  height: 1193
+nyc-06.jpg:
+  width: 1193
+  height: 1800
