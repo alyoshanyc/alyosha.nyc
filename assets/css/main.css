@@ -99,16 +99,14 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	padding-inline: clamp(8px, 1.2vw, 16px);
 	padding-bottom: clamp(8px, 1.2vw, 16px);
 }
-.stream--cols { display: flex; align-items: flex-start; gap: 4px; }
+/* Tiles butt together: no gutters between pictures, in either direction. */
+.stream--cols { display: flex; align-items: flex-start; }
 .stream__col {
 	flex: 1 1 0;
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
 }
-/* Pre-deal (and no-JS) fallback: flat items stack with the same gutter. */
-.stream:not(.stream--cols) .stream__item { margin-bottom: 4px; }
 .stream__link { display: block; position: relative; cursor: pointer; }
 .stream__img { display: block; width: 100%; height: auto; }
 /* Same hover idiom as the rest of the site: dark veil, centered label. */
