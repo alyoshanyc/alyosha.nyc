@@ -34,6 +34,10 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # Create/enable the Pages site on first deploy (e.g. after a repo
+          # move) instead of failing until someone enables it in Settings.
+          enablement: true
 
       - name: Build with Jekyll
         # base_path is "" for a custom domain, or /<repo> for project pages;

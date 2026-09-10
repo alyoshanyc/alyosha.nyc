@@ -65,7 +65,7 @@ A push to `main` starts `.github/workflows/pages.yml`. The workflow builds the s
 
 The site deploys through GitHub Actions, so the `CNAME` file in this repository does not attach the domain by itself. The domain is linked in two places:
 
-1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). When DNS resolves, set **Enforce HTTPS** so GitHub provisions the certificate.
+1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyosmo/alyosha.nyc/pages -f cname=alyosha.nyc`). When DNS resolves, set **Enforce HTTPS** so GitHub provisions the certificate.
 2. **DNS (GoDaddy):** point the domain at GitHub Pages with these records:
 
    | Type  | Name | Value               |
@@ -74,6 +74,6 @@ The site deploys through GitHub Actions, so the `CNAME` file in this repository 
    | A     | @    | 185.199.109.153     |
    | A     | @    | 185.199.110.153     |
    | A     | @    | 185.199.111.153     |
-   | CNAME | www  | alyoshanyc.github.io |
+   | CNAME | www  | alyosmo.github.io |
 
    Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (it must return the four IPs above).
