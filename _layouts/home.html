@@ -19,6 +19,11 @@ layout: default
 {% if c2.size > max %}{% assign max = c2.size %}{% endif %}
 {% if c3.size > max %}{% assign max = c3.size %}{% endif %}
 {% if c4.size > max %}{% assign max = c4.size %}{% endif %}
+{% comment %} Load budget: the first EAGER_LIMIT photos in display order load
+   up front; every photo after that lazy-loads and fades in as the visitor
+   scrolls, so a growing gallery never front-loads the whole page. {% endcomment %}
+{% assign eager_limit = 20 %}
+{% assign seq = 0 %}
 <section class="stream" id="stream">
 	{% for row in (1..max) %}
 	{% assign ridx = forloop.index0 %}
@@ -36,10 +41,15 @@ layout: default
 	{% assign slug = file.basename | slugify %}
 	<div class="stream__item" data-col="{{ cn }}">
 		<a class="stream__link" href="{{ '/photos/' | append: slug | append: '/' | relative_url }}">
+			{% if seq < eager_limit %}
 			<img class="stream__img" src="{{ file.path | relative_url }}" alt=""
 				{% if row == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}>
+			{% else %}
+			<img class="stream__img stream__img--fade" src="{{ file.path | relative_url }}" alt="" loading="lazy">
+			{% endif %}
 		</a>
 	</div>
+	{% assign seq = seq | plus: 1 %}
 	{% endif %}
 	{% endif %}
 	{% endfor %}

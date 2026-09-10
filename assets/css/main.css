@@ -109,6 +109,13 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 .stream__link { display: block; position: relative; cursor: pointer; }
 .stream__img { display: block; width: 100%; height: auto; }
+/* Photos past the eager load budget fade in as their lazy load completes. */
+.stream__img--fade { opacity: 0; transition: opacity .6s ease; }
+.stream__img--fade.is-loaded { opacity: 1; }
+/* Without JS nothing would add .is-loaded, so show the photos plainly. */
+@media (scripting: none) {
+	.stream__img--fade { opacity: 1; }
+}
 /* Hover: dark translucent veil with a centered label. text-indent offsets the
    trailing letter-space so the label centers optically. */
 .stream__link::after {
@@ -155,13 +162,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .prose { max-width: 62ch; font-size: 1.05rem; }
 .prose__lead { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; }
 .prose p { margin: 0 0 1.4em; }
-.page__empty { color: var(--muted); }
 
 .contact__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 96px); }
 .contact__details dl { margin: 0; }
 .contact__details dt { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); margin-top: 1.4rem; }
 .contact__details dd { margin: .25rem 0 0; }
-.contact__note { color: var(--muted); font-size: .9rem; margin-top: 2rem; }
 
 /* Footer ----------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--line); padding-block: clamp(40px, 6vw, 80px); margin-top: 4rem; }

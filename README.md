@@ -1,52 +1,71 @@
 # alyosha.nyc
 
-Personal site for the artist **Alyosha**, built with [Jekyll](https://jekyllrb.com) and hosted on GitHub Pages. Content is plain Markdown. Commit a file and GitHub rebuilds the site automatically.
+Personal site for the photographer **Alyosha**. The site uses [Jekyll](https://jekyllrb.com) and GitHub Pages. A push to `main` builds and deploys the site automatically.
 
-## Layout
+The homepage is one photo stream, in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs). Desktop screens show 4 columns. Narrow screens show 3, 2, or 1 column. Each photo links to its own page, with previous/next navigation in stream order.
 
-```
-_data/gallery.yml      homepage curation: which photo goes in which column
-assets/images/...      the image files
-_config.yml            site settings
-index.md, about.md, contact.md
-```
+## Files you maintain
 
-The homepage is a single photo stream in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs): tightly packed columns with no gutters. Desktop shows 4 columns, narrower screens 3, 2, then 1 (phones).
+You maintain two things. Do not change other files for day-to-day updates.
 
-## Maintaining the site
+| File or folder | Purpose |
+|---|---|
+| `assets/images/` | The photo files. Subfolders are permitted. |
+| `_data/gallery.yml` | The homepage layout. Four lists = the four desktop columns, top to bottom. |
 
-Day to day there are only two things to touch:
+All other content is automatic. The build creates one page per listed photo at `/photos/<filename-without-extension>/`.
 
-1. **`assets/images/`** — upload photos here (any subfolder is fine, filenames must be unique across the site). **Size the image before uploading**: longest edge at most **1800px**, JPEG. Nothing on the site resizes images for you; whatever you commit is what visitors download.
-2. **`_data/gallery.yml`** — decides what appears on the homepage and where. Four lists, `column01`-`column04`: the four columns as seen on desktop, top to bottom. Add a photo's bare filename (e.g. `photo.jpg`) to a column to show it; move lines around to rearrange; delete a line to remove it from the page (the file stays in the repo). Keep the four columns roughly the same length so the page ends evenly.
+## Add a photo
 
-On narrower screens the columns are interleaved (first of each column, then second of each column, and so on) and re-dealt into 3, 2, or 1 columns, so the relative order set in the YAML carries over everywhere.
+1. Prepare the photo before you upload it. The site does not resize or compress photos. Visitors download the file that you commit.
+   - **Format:** JPEG (`.jpg`).
+   - **Dimensions:** make the longest edge 1800 pixels or less. Do not upload camera originals (4000+ pixels). Keep the longest edge at 1200 pixels or more, or the photo can look soft on large screens.
+   - **File size:** keep each file under 500 KB. Export at JPEG quality 80-85 to reach this. The photos on the site today average approximately 200 KB.
+2. Give the file a name that no other file in the repository has.
+   - **CAUTION:** If two files have the same name, the site shows only one of them. It selects the file silently. It does not show an error.
+3. Put the file in `assets/images/`. You can use any subfolder.
+4. Open `_data/gallery.yml`. Add the file name (for example `photo.jpg`) to one of the four columns. Do not include the folder path.
+5. Commit the two changes. Push to `main`. The site rebuilds and deploys automatically.
 
-Everything else is automatic: each curated photo also gets its own page at `/photos/<filename-without-extension>/` (clicking a tile opens it; prev/next arrows follow the stream order). These pages are generated at build time by `_plugins/photo_pages.rb` — nothing to maintain.
+## Change the homepage layout
 
-Commit and push to `main` — the site rebuilds and deploys itself.
+- The four lists in `_data/gallery.yml` are the four desktop columns, top to bottom.
+- Move a line to move a photo.
+- Remove a line to remove a photo from the homepage. The file stays in the repository.
+- Keep the four columns approximately equal in length. Then the page ends evenly.
+- On narrow screens the site interleaves the columns row by row (first of each column, then second of each column, and so on). It then re-deals that order into 3, 2, or 1 columns. The relative order that you set applies on all screens.
 
-### Pages & settings (rarely)
+## If a photo does not appear
 
-- About, Contact → `about.md`, `contact.md`.
-- Site name, email, share image → `_config.yml`.
+Do these checks:
 
-## Preview locally
+1. Make sure the file name in `_data/gallery.yml` is the same as the file name in `assets/images/`. Do not include the folder path in the YAML.
+2. Make sure no other file in the repository has the same name.
+3. Make sure the deploy succeeded: repository → **Actions** tab → newest run is green. The build log shows a warning for each YAML entry that has no matching file.
+
+## Pages and settings (rare changes)
+
+- About page → `about.md`. Contact page → `contact.md`.
+- Site name, email, and share image → `_config.yml`.
+
+## Preview the site locally (developers)
 
 ```bash
 bundle install
 bundle exec jekyll serve --livereload    # http://localhost:4000
 ```
 
+The photo pages come from a build plugin: `_plugins/photo_pages.rb`. This is why the site uses the `jekyll` gem, not the `github-pages` gem (that gem does not permit custom plugins).
+
 ## Deploy
 
-Pushing to `main` triggers `.github/workflows/pages.yml`, which builds the site with Bundler and deploys it to GitHub Pages. (Repo setting: **Settings → Pages → Source: GitHub Actions**.)
+A push to `main` starts `.github/workflows/pages.yml`. The workflow builds the site and deploys it to GitHub Pages. Repository setting: **Settings → Pages → Source: GitHub Actions**.
 
 ## Custom domain (alyosha.nyc)
 
-Because the site deploys through GitHub Actions, the `CNAME` file in this repo does not attach the domain by itself. The domain is linked in two places:
+The site deploys through GitHub Actions, so the `CNAME` file in this repository does not attach the domain by itself. The domain is linked in two places:
 
-1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). Once DNS resolves, check **Enforce HTTPS** so GitHub provisions the certificate.
+1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). When DNS resolves, set **Enforce HTTPS** so GitHub provisions the certificate.
 2. **DNS (GoDaddy):** point the domain at GitHub Pages with these records:
 
    | Type  | Name | Value               |
@@ -57,4 +76,4 @@ Because the site deploys through GitHub Actions, the `CNAME` file in this repo d
    | A     | @    | 185.199.111.153     |
    | CNAME | www  | alyoshanyc.github.io |
 
-   Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (should return the four IPs above).
+   Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (it must return the four IPs above).

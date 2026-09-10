@@ -44,4 +44,18 @@
 
 	deal();
 	window.addEventListener("resize", deal);
+
+	// Photos past the eager budget (see _layouts/home.html) start transparent
+	// and fade in once their lazy load finishes.
+	items.forEach(function (item) {
+		var img = item.querySelector(".stream__img--fade");
+		if (!img) { return; }
+		if (img.complete && img.naturalWidth > 0) {
+			img.classList.add("is-loaded");
+		} else {
+			img.addEventListener("load", function () {
+				img.classList.add("is-loaded");
+			});
+		}
+	});
 })();
