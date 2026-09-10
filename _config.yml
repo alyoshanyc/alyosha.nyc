@@ -17,7 +17,6 @@ hero_image: /assets/images/hero-garden-statue.jpg
 # Build settings
 markdown: kramdown
 timezone: America/New_York
-permalink: /posts/:title/
 
 # Exclude non-site files from the build
 exclude:

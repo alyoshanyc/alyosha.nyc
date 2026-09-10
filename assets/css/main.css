@@ -109,7 +109,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 .stream__link { display: block; position: relative; cursor: pointer; }
 .stream__img { display: block; width: 100%; height: auto; }
-/* Same hover idiom as the rest of the site: dark veil, centered label. */
+/* Hover: dark translucent veil with a centered label. text-indent offsets the
+   trailing letter-space so the label centers optically. */
 .stream__link::after {
 	content: "View";
 	position: absolute; inset: 0;
@@ -122,17 +123,31 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 .stream__link:hover::after { opacity: 1; }
 
-/* Statement -------------------------------------------------- */
-.statement { padding: clamp(40px, 6vw, 84px) 0; border-bottom: 1px solid var(--line); }
-.statement__lead { max-width: 34rem; }
-.statement__lead p {
-	font-family: var(--serif);
-	font-weight: 400;
-	font-size: clamp(1.5rem, 2.8vw, 2.15rem);
-	line-height: 1.28;
-	margin: 0 0 .6em;
+/* Photo page ------------------------------------------------- */
+/* One photo, fit to the viewport uncropped, arrows below (prev/next follow
+   the stream order; Index returns to the homepage). */
+.photo { padding: clamp(8px, 1.2vw, 16px); }
+.photo__media { margin: 0; }
+.photo__img {
+	display: block;
+	margin-inline: auto;
+	max-width: 100%;
+	max-height: calc(100svh - var(--header-h) - 6rem);
+	width: auto; height: auto;
 }
-.statement__lead p:last-child { margin-bottom: 0; }
+@supports not (height: 100svh) {
+	.photo__img { max-height: calc(100vh - var(--header-h) - 6rem); }
+}
+.photo__nav {
+	display: flex; align-items: center; justify-content: center;
+	gap: 2.5rem; margin-top: 1.25rem;
+}
+.photo__arrow { font-size: 1.1rem; }
+.photo__arrow--off { opacity: .25; }
+.photo__index {
+	text-transform: uppercase; letter-spacing: .18em; text-indent: .18em;
+	font-size: .72rem; color: var(--muted);
+}
 
 /* Pages ------------------------------------------------------ */
 .page { padding-block: clamp(48px, 8vw, 120px); }
@@ -147,24 +162,6 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .contact__details dt { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); margin-top: 1.4rem; }
 .contact__details dd { margin: .25rem 0 0; }
 .contact__note { color: var(--muted); font-size: .9rem; margin-top: 2rem; }
-
-/* Archive ---------------------------------------------------- */
-.archive { padding-block: clamp(48px, 8vw, 120px); }
-.post-list__item { padding-block: 2rem; border-bottom: 1px solid var(--line); }
-.post-list__title { font-family: var(--serif); font-weight: 400; }
-
-/* Single post ------------------------------------------------ */
-.single { padding-block: clamp(40px, 7vw, 96px); }
-.single__header { max-width: 62ch; }
-.single__date { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); }
-.single__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin: .5rem 0 2rem; }
-.single__media { margin: 0 0 2.5rem; }
-/* Show the whole image on the post page (no cropping). */
-.single__img { width: 100%; height: auto; display: block; }
-.single__caption { font-size: .8rem; color: var(--muted); margin-top: .6rem; }
-.single__content { font-size: 1.08rem; }
-.single__content p { margin: 0 0 1.4em; }
-.single__footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .85rem; }
 
 /* Footer ----------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--line); padding-block: clamp(40px, 6vw, 80px); margin-top: 4rem; }

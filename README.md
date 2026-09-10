@@ -5,68 +5,31 @@ Personal site for the artist **Alyosha**, built with [Jekyll](https://jekyllrb.c
 ## Layout
 
 ```
-_config.yml            site settings + project list
+_data/gallery.yml      homepage curation: which photo goes in which column
+assets/images/...      the image files
+_config.yml            site settings
 index.md, about.md, contact.md
-projects/<id>.md       one page per project (and subproject)
-_posts/<project>/       posts for a project   (e.g. _posts/jamaica/)
-_posts/<parent>/<sub>/  posts for a subproject (e.g. _posts/models/caitlin/)
-assets/images/...       images, mirroring the same hierarchy
 ```
 
-Current projects: **Models** (with subprojects Anga, Lulu, Caitlin), **Jamaica**, **NYC**.
+The homepage is a single photo stream in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs): tightly packed columns with no gutters. Desktop shows 4 columns, narrower screens 3, 2, then 1 (phones).
 
-## Add content
+## Maintaining the site
 
-### A post (a work, photo, or note)
+Day to day there are only two things to touch:
 
-1. Put the image in **`assets/images/<project>/`**.
-2. Create **`_posts/<project>/YYYY-MM-DD-title.md`** (the date prefix is required). For a subproject, mirror the hierarchy: **`_posts/<parent>/<subproject>/...`** (e.g. `_posts/models/lulu/`):
+1. **`assets/images/`** — upload photos here (any subfolder is fine, filenames must be unique across the site). **Size the image before uploading**: longest edge at most **1800px**, JPEG. Nothing on the site resizes images for you; whatever you commit is what visitors download.
+2. **`_data/gallery.yml`** — decides what appears on the homepage and where. Four lists, `column01`-`column04`: the four columns as seen on desktop, top to bottom. Add a photo's bare filename (e.g. `photo.jpg`) to a column to show it; move lines around to rearrange; delete a line to remove it from the page (the file stays in the repo). Keep the four columns roughly the same length so the page ends evenly.
 
-   ```markdown
-   ---
-   layout: post
-   title: "Title"
-   date: 2025-07-23
-   project: jamaica                    # id of the project it belongs to (see _config.yml)
-   image: /assets/images/jamaica/photo.jpg
-   caption: "Film stock · place, year" # optional
-   focus: top                          # optional: vertical crop for the thumbnail
-   cover: true                         # optional: use as the subproject tile image
-   ---
-   Your text here. Blank line between paragraphs. *Italics* and [links](https://example.com) work.
-   ```
+On narrower screens the columns are interleaved (first of each column, then second of each column, and so on) and re-dealt into 3, 2, or 1 columns, so the relative order set in the YAML carries over everywhere.
 
-Posts live in a folder per project under `_posts/` for tidiness, but the `project:` field is what actually ties a post to its project.
+Everything else is automatic: each curated photo also gets its own page at `/photos/<filename-without-extension>/` (clicking a tile opens it; prev/next arrows follow the stream order). These pages are generated at build time by `_plugins/photo_pages.rb` — nothing to maintain.
 
-**`focus` (thumbnail framing).** Project thumbnails are cropped to a 4:3 box, so tall photos lose part of their height. `focus` controls which part stays. It is the vertical half of CSS `object-position`, so it accepts `top`, `center` (the default), `bottom`, or any percentage:
+Commit and push to `main` — the site rebuilds and deploys itself.
 
-- `0%` (= `top`) shows the very top of the photo; `100%` (= `bottom`) shows the very bottom.
-- **Lower** the percentage to reveal more of the **top** (use this when a head is getting clipped). **Raise** it to reveal more of the **bottom** (use this when the subject sits too low).
-- Fine-tune in small steps. Typical headshots land around `15%`-`45%`; a subject set low in the frame (foreground below, sky or foliage above) may want `55%`-`70%`. Percentages give pixel-level control, so prefer them over the keywords when a face is close to an edge.
-- Landscape photos (wider than 4:3) are not cropped vertically, so `focus` has no effect on them.
+### Pages & settings (rarely)
 
-(Single post pages always show the full, uncropped image; `focus` only affects the thumbnail.)
-
-The post appears on its project page and in that project's homepage row.
-
-### A project (a body of work)
-
-1. Add an entry under `projects:` in **`_config.yml`**:
-
-   ```yaml
-   projects:
-     - id: my-project
-       title: "My Project"
-   ```
-
-2. Give it a page: copy `projects/jamaica.md` to `projects/my-project.md` and change `project_id` and `permalink` to match the id.
-
-**Subprojects.** Add `parent: <other-id>` to a project to nest it (e.g. `anga` and `lulu` under `models`). The parent's page shows one tile per subproject, using that subproject's `cover: true` post (or its newest post) as the tile image. Subprojects are hidden from the top nav. Mirror the hierarchy in `_posts/` (e.g. `_posts/models/lulu/`).
-
-### Pages & settings
-
-- Homepage intro, About, Contact → `index.md`, `about.md`, `contact.md`.
-- Site name, email, hero image, and project names/order → `_config.yml`.
+- About, Contact → `about.md`, `contact.md`.
+- Site name, email, share image → `_config.yml`.
 
 ## Preview locally
 
