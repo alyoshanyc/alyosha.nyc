@@ -1,89 +1,71 @@
 # alyosha.nyc
 
-Personal site for the artist **Alyosha**, built with [Jekyll](https://jekyllrb.com) and hosted on GitHub Pages. Content is plain Markdown. Commit a file and GitHub rebuilds the site automatically.
+Personal site for the photographer **Alyosha**. The site uses [Jekyll](https://jekyllrb.com) and GitHub Pages. A push to `main` builds and deploys the site automatically.
 
-## Layout
+The homepage is one photo stream, in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs). Desktop screens show 4 columns. Narrow screens show 3, 2, or 1 column. Each photo links to its own page, with previous/next navigation in stream order.
 
-```
-_config.yml            site settings + project list
-index.md, about.md, contact.md
-projects/<id>.md       one page per project (and subproject)
-_posts/<project>/       posts for a project   (e.g. _posts/jamaica/)
-_posts/<parent>/<sub>/  posts for a subproject (e.g. _posts/models/caitlin/)
-assets/images/...       images, mirroring the same hierarchy
-```
+## Files you maintain
 
-Current projects: **Models** (with subprojects Anga, Lulu, Caitlin), **Jamaica**, **NYC**.
+You maintain two things. Do not change other files for day-to-day updates.
 
-## Add content
+| File or folder | Purpose |
+|---|---|
+| `assets/images/` | The photo files. Subfolders are permitted. |
+| `_data/gallery.yml` | The homepage layout. Four lists = the four desktop columns, top to bottom. |
 
-### A post (a work, photo, or note)
+All other content is automatic. The build creates one page per listed photo at `/photos/<filename-without-extension>/`.
 
-1. Put the image in **`assets/images/<project>/`**.
-2. Create **`_posts/<project>/YYYY-MM-DD-title.md`** (the date prefix is required). For a subproject, mirror the hierarchy: **`_posts/<parent>/<subproject>/...`** (e.g. `_posts/models/lulu/`):
+## Add a photo
 
-   ```markdown
-   ---
-   layout: post
-   title: "Title"
-   date: 2025-07-23
-   project: jamaica                    # id of the project it belongs to (see _config.yml)
-   image: /assets/images/jamaica/photo.jpg
-   caption: "Film stock · place, year" # optional
-   focus: top                          # optional: vertical crop for the thumbnail
-   cover: true                         # optional: use as the subproject tile image
-   ---
-   Your text here. Blank line between paragraphs. *Italics* and [links](https://example.com) work.
-   ```
+1. Prepare the photo before you upload it. The site does not resize or compress photos. Visitors download the file that you commit.
+   - **Format:** JPEG (`.jpg`).
+   - **Dimensions:** make the longest edge 1800 pixels or less. Do not upload camera originals (4000+ pixels). Keep the longest edge at 1200 pixels or more, or the photo can look soft on large screens.
+   - **File size:** keep each file under 500 KB. Export at JPEG quality 80-85 to reach this. The photos on the site today average approximately 200 KB.
+2. Give the file a name that no other file in the repository has.
+   - **CAUTION:** If two files have the same name, the site shows only one of them. It selects the file silently. It does not show an error.
+3. Put the file in `assets/images/`. You can use any subfolder.
+4. Open `_data/gallery.yml`. Add the file name (for example `photo.jpg`) to one of the four columns. Do not include the folder path.
+5. Commit the two changes. Push to `main`. The site rebuilds and deploys automatically.
 
-Posts live in a folder per project under `_posts/` for tidiness, but the `project:` field is what actually ties a post to its project.
+## Change the homepage layout
 
-**`focus` (thumbnail framing).** Project thumbnails are cropped to a 4:3 box, so tall photos lose part of their height. `focus` controls which part stays. It is the vertical half of CSS `object-position`, so it accepts `top`, `center` (the default), `bottom`, or any percentage:
+- The four lists in `_data/gallery.yml` are the four desktop columns, top to bottom.
+- Move a line to move a photo.
+- Remove a line to remove a photo from the homepage. The file stays in the repository.
+- Keep the four columns approximately equal in length. Then the page ends evenly.
+- On narrow screens the site interleaves the columns row by row (first of each column, then second of each column, and so on). It then re-deals that order into 3, 2, or 1 columns. The relative order that you set applies on all screens.
 
-- `0%` (= `top`) shows the very top of the photo; `100%` (= `bottom`) shows the very bottom.
-- **Lower** the percentage to reveal more of the **top** (use this when a head is getting clipped). **Raise** it to reveal more of the **bottom** (use this when the subject sits too low).
-- Fine-tune in small steps. Typical headshots land around `15%`-`45%`; a subject set low in the frame (foreground below, sky or foliage above) may want `55%`-`70%`. Percentages give pixel-level control, so prefer them over the keywords when a face is close to an edge.
-- Landscape photos (wider than 4:3) are not cropped vertically, so `focus` has no effect on them.
+## If a photo does not appear
 
-(Single post pages always show the full, uncropped image; `focus` only affects the thumbnail.)
+Do these checks:
 
-The post appears on its project page and in that project's homepage row.
+1. Make sure the file name in `_data/gallery.yml` is the same as the file name in `assets/images/`. Do not include the folder path in the YAML.
+2. Make sure no other file in the repository has the same name.
+3. Make sure the deploy succeeded: repository → **Actions** tab → newest run is green. The build log shows a warning for each YAML entry that has no matching file.
 
-### A project (a body of work)
+## Pages and settings (rare changes)
 
-1. Add an entry under `projects:` in **`_config.yml`**:
+- About page → `about.md`. Contact page → `contact.md`.
+- Site name, email, and share image → `_config.yml`.
 
-   ```yaml
-   projects:
-     - id: my-project
-       title: "My Project"
-   ```
-
-2. Give it a page: copy `projects/jamaica.md` to `projects/my-project.md` and change `project_id` and `permalink` to match the id.
-
-**Subprojects.** Add `parent: <other-id>` to a project to nest it (e.g. `anga` and `lulu` under `models`). The parent's page shows one tile per subproject, using that subproject's `cover: true` post (or its newest post) as the tile image. Subprojects are hidden from the top nav. Mirror the hierarchy in `_posts/` (e.g. `_posts/models/lulu/`).
-
-### Pages & settings
-
-- Homepage intro, About, Contact → `index.md`, `about.md`, `contact.md`.
-- Site name, email, hero image, and project names/order → `_config.yml`.
-
-## Preview locally
+## Preview the site locally (developers)
 
 ```bash
 bundle install
 bundle exec jekyll serve --livereload    # http://localhost:4000
 ```
 
+The photo pages come from a build plugin: `_plugins/photo_pages.rb`. This is why the site uses the `jekyll` gem, not the `github-pages` gem (that gem does not permit custom plugins).
+
 ## Deploy
 
-Pushing to `main` triggers `.github/workflows/pages.yml`, which builds the site with Bundler and deploys it to GitHub Pages. (Repo setting: **Settings → Pages → Source: GitHub Actions**.)
+A push to `main` starts `.github/workflows/pages.yml`. The workflow builds the site and deploys it to GitHub Pages. Repository setting: **Settings → Pages → Source: GitHub Actions**.
 
 ## Custom domain (alyosha.nyc)
 
-Because the site deploys through GitHub Actions, the `CNAME` file in this repo does not attach the domain by itself. The domain is linked in two places:
+The site deploys through GitHub Actions, so the `CNAME` file in this repository does not attach the domain by itself. The domain is linked in two places:
 
-1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). Once DNS resolves, check **Enforce HTTPS** so GitHub provisions the certificate.
+1. **GitHub:** Settings → Pages → Custom domain → `alyosha.nyc` (or `gh api -X PUT repos/alyoshanyc/alyosha.nyc/pages -f cname=alyosha.nyc`). When DNS resolves, set **Enforce HTTPS** so GitHub provisions the certificate.
 2. **DNS (GoDaddy):** point the domain at GitHub Pages with these records:
 
    | Type  | Name | Value               |
@@ -94,4 +76,4 @@ Because the site deploys through GitHub Actions, the `CNAME` file in this repo d
    | A     | @    | 185.199.111.153     |
    | CNAME | www  | alyoshanyc.github.io |
 
-   Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (should return the four IPs above).
+   Delete GoDaddy's default parked `A @` record and any domain forwarding first. GitHub redirects `www.alyosha.nyc` to the apex automatically. Verify with `dig +short alyosha.nyc` (it must return the four IPs above).

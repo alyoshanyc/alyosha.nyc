@@ -1,0 +1,58 @@
+# Homepage photo stream.
+# Four lists = the four columns on a desktop screen, top to bottom.
+# Each line is one photo filename. The file must exist in assets/images/
+# (any subfolder). Filenames must be unique across the site.
+# On narrow screens the site interleaves the columns row by row
+# (column01[0], column02[0], column03[0], column04[0], column01[1], ...)
+# and re-deals that order into 3, 2, or 1 columns.
+column01:
+  - caitlin-02.jpg
+  - jamaica-more-05.jpg
+  - lulu-04.jpg
+  - nyc-06.jpg
+  - jamaica-cinestill-03.jpg
+  - anga-02.jpg
+  - jamaica-more-09.jpg
+  - caitlin-05.jpg
+  - jamaica-more-17.jpg
+  - nyc-01.jpg
+  - jamaica-ilford-03.jpg
+  - jamaica-more-11.jpg
+column02:
+  - jamaica-kodak-03.jpg
+  - anga-01.jpg
+  - jamaica-more-12.jpg
+  - caitlin-03.jpg
+  - jamaica-more-07.jpg
+  - nyc-02.jpg
+  - lulu-02.jpg
+  - jamaica-more-14.jpg
+  - jamaica-cinestill-01.jpg
+  - jamaica-more-10.jpg
+  - jamaica-more-03.jpg
+  - jamaica-more-15.jpg
+column03:
+  - nyc-04.jpg
+  - jamaica-cinestill-02.jpg
+  - caitlin-01.jpg
+  - jamaica-more-02.jpg
+  - lulu-05.jpg
+  - jamaica-kodak-01.jpg
+  - jamaica-more-01.jpg
+  - nyc-05.jpg
+  - anga-03.jpg
+  - jamaica-more-06.jpg
+  - jamaica-more-13.jpg
+  - jamaica-more-18.jpg
+column04:
+  - lulu-01.jpg
+  - nyc-03.jpg
+  - jamaica-ilford-01.jpg
+  - anga-04.jpg
+  - jamaica-more-16.jpg
+  - caitlin-04.jpg
+  - jamaica-ilford-02.jpg
+  - jamaica-more-04.jpg
+  - lulu-03.jpg
+  - jamaica-kodak-02.jpg
+  - jamaica-more-08.jpg

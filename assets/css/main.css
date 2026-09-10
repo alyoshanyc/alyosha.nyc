@@ -90,76 +90,35 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	transition: transform .25s ease, opacity .25s ease;
 }
 
-/* Hero ------------------------------------------------------- */
-/* The image always spans the full window width and keeps its aspect ratio, so
-   the whole frame is shown uncropped. If that makes it taller than the screen,
-   the visitor scrolls down to see the rest. */
-/* No top padding: the image's top edge borders the header band exactly, so
-   scrolling slides it straight under the navbar with no whitespace gap. */
-.hero { position: relative; }
-/* Small white margin down each side so the image sits inset, not edge-to-edge. */
-.hero__media { width: 100%; padding-inline: clamp(8px, 1.2vw, 16px); }
-.hero__img { width: 100%; height: auto; display: block; }
-.hero__placeholder { width: 100%; height: calc(100svh - var(--header-h)); }
-@supports not (height: 100svh) {
-	.hero__placeholder { height: calc(100vh - var(--header-h)); }
-}
-.hero__placeholder {
-	background: linear-gradient(135deg, #f3f3f3 0%, #e9e9e9 50%, #f6f6f6 100%);
-}
-
-/* Statement -------------------------------------------------- */
-.statement { padding: clamp(40px, 6vw, 84px) 0; border-bottom: 1px solid var(--line); }
-.statement__lead { max-width: 34rem; }
-.statement__lead p {
-	font-family: var(--serif);
-	font-weight: 400;
-	font-size: clamp(1.5rem, 2.8vw, 2.15rem);
-	line-height: 1.28;
-	margin: 0 0 .6em;
-}
-.statement__lead p:last-child { margin-bottom: 0; }
-
-/* Pages ------------------------------------------------------ */
-.page { padding-block: clamp(48px, 8vw, 120px); }
-.page__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); margin: 0 0 2rem; }
-.prose { max-width: 62ch; font-size: 1.05rem; }
-.prose__lead { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; }
-.prose p { margin: 0 0 1.4em; }
-.page__empty { color: var(--muted); }
-
-.contact__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 96px); }
-.contact__details dl { margin: 0; }
-.contact__details dt { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); margin-top: 1.4rem; }
-.contact__details dd { margin: .25rem 0 0; }
-.contact__note { color: var(--muted); font-size: .9rem; margin-top: 2rem; }
-
-/* Archive ---------------------------------------------------- */
-.archive { padding-block: clamp(48px, 8vw, 120px); }
-.post-list__item { padding-block: 2rem; border-bottom: 1px solid var(--line); }
-.post-list__title { font-family: var(--serif); font-weight: 400; }
-
-/* Home galleries grid ---------------------------------------- */
-/* Two landscape tiles per row, near full-bleed: the grid spans the window
-   with the same small side margins as the hero. */
-.galleries { padding-block: clamp(64px, 9vw, 144px) clamp(40px, 6vw, 96px); }
-.galleries__grid {
-	width: 100%;
+/* Home photo stream ------------------------------------------ */
+/* Curated multi-column stream (see _data/gallery.yml). Items render flat and
+   stacked (the 1-column/no-JS layout); gallery.js deals them into 2-4 columns
+   at wider breakpoints. Each column stacks independently, so rows drift out
+   of alignment as image heights differ - that stagger is the design. */
+.stream {
 	padding-inline: clamp(8px, 1.2vw, 16px);
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: clamp(32px, 4.5vw, 72px) clamp(48px, 6.5vw, 104px);
+	padding-bottom: clamp(8px, 1.2vw, 16px);
 }
-.gallery-card:hover { text-decoration: none; }
-/* Landscape crop: every tile is the same 3:2 frame regardless of the source
-   image's orientation; `focus` (object-position) picks the visible band. */
-.gallery-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #f3f3f3; position: relative; }
-/* Hover state on clickable tiles: dark translucent veil with a centered label.
-   Scoped to a.gallery-card so the "coming soon" placeholder (a div) stays inert.
-   text-indent offsets the trailing letter-space so the label centers optically. */
-a.gallery-card, a.news__link { cursor: pointer; }
-a.gallery-card .gallery-card__media::after,
-a.news__link .news__media::after {
+/* Tiles butt together: no gutters between pictures, in either direction. */
+.stream--cols { display: flex; align-items: flex-start; }
+.stream__col {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+.stream__link { display: block; position: relative; cursor: pointer; }
+.stream__img { display: block; width: 100%; height: auto; }
+/* Photos past the eager load budget fade in as their lazy load completes. */
+.stream__img--fade { opacity: 0; transition: opacity .6s ease; }
+.stream__img--fade.is-loaded { opacity: 1; }
+/* Without JS nothing would add .is-loaded, so show the photos plainly. */
+@media (scripting: none) {
+	.stream__img--fade { opacity: 1; }
+}
+/* Hover: dark translucent veil with a centered label. text-indent offsets the
+   trailing letter-space so the label centers optically. */
+.stream__link::after {
 	content: "View";
 	position: absolute; inset: 0;
 	display: flex; align-items: center; justify-content: center;
@@ -169,65 +128,45 @@ a.news__link .news__media::after {
 	letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase;
 	opacity: 0; transition: opacity 0.25s ease;
 }
-a.gallery-card:hover .gallery-card__media::after,
-a.news__link:hover .news__media::after { opacity: 1; }
-.gallery-card__img {
-	width: 100%; height: 100%; object-fit: cover;
-	transition: transform .5s ease;
+.stream__link:hover::after { opacity: 1; }
+
+/* Photo page ------------------------------------------------- */
+/* One photo, fit to the viewport uncropped, arrows below (prev/next follow
+   the stream order; Index returns to the homepage). */
+.photo { padding: clamp(8px, 1.2vw, 16px); }
+.photo__media { margin: 0; }
+.photo__img {
+	display: block;
+	margin-inline: auto;
+	max-width: 100%;
+	max-height: calc(100svh - var(--header-h) - 6rem);
+	width: auto; height: auto;
 }
-.gallery-card:hover .gallery-card__img { transform: scale(1.03); }
-.gallery-card__title {
-	font-weight: 600; text-transform: uppercase; letter-spacing: .12em;
-	font-size: .8rem; margin: .8rem 0 0;
+@supports not (height: 100svh) {
+	.photo__img { max-height: calc(100vh - var(--header-h) - 6rem); }
 }
-.gallery-card--placeholder .gallery-card__media {
-	background: linear-gradient(135deg, #f3f3f3 0%, #e9e9e9 50%, #f6f6f6 100%);
+.photo__nav {
+	display: flex; align-items: center; justify-content: center;
+	gap: 2.5rem; margin-top: 1.25rem;
 }
-.gallery-card--placeholder .gallery-card__title { color: var(--muted); }
-@media (max-width: 700px) {
-	.galleries__grid { grid-template-columns: 1fr; }
+.photo__arrow { font-size: 1.1rem; }
+.photo__arrow--off { opacity: .25; }
+.photo__index {
+	text-transform: uppercase; letter-spacing: .18em; text-indent: .18em;
+	font-size: .72rem; color: var(--muted);
 }
 
-/* News (home teaser + archive) ------------------------------- */
-/* Minimal, whitespace-driven sections: small uppercase section labels, no
-   divider lines, sans captions under each image. */
-.news { padding-block: clamp(48px, 7vw, 110px); }
-.news__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: clamp(1.5rem, 3vw, 2.75rem); }
-.news__heading { font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; margin: 0; }
-.news__all { text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; color: var(--muted); }
-/* Masonry via CSS columns: whole frames, never cropped, mixed orientations
-   flow into aligned columns. */
-.news__grid { column-count: 3; column-gap: clamp(20px, 3vw, 40px); }
-.news__item { break-inside: avoid; margin-bottom: clamp(20px, 3vw, 40px); }
-.news__link:hover { text-decoration: none; }
-.news__media { overflow: hidden; margin-bottom: .9rem; background: #f3f3f3; position: relative; }
-.news__img { display: block; width: 100%; height: auto; object-fit: contain; transition: transform .5s ease; }
-.news__link:hover .news__img { transform: scale(1.03); }
-.news__date { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; color: var(--muted); }
-.news__title { font-weight: 600; font-size: 1rem; line-height: 1.3; letter-spacing: .01em; margin: .5rem 0 0; }
+/* Pages ------------------------------------------------------ */
+.page { padding-block: clamp(48px, 8vw, 120px); }
+.page__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); margin: 0 0 2rem; }
+.prose { max-width: 62ch; font-size: 1.05rem; }
+.prose__lead { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; }
+.prose p { margin: 0 0 1.4em; }
 
-/* Breadcrumb (subproject -> parent) -------------------------- */
-.crumb { text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; color: var(--muted); margin: 0 0 .6rem; }
-
-/* Single post ------------------------------------------------ */
-.single { padding-block: clamp(40px, 7vw, 96px); }
-.single__header { max-width: 62ch; }
-.single__date { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); }
-.single__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin: .5rem 0 2rem; }
-.single__media { margin: 0 0 2.5rem; }
-/* Show the whole image on the post page (no cropping). */
-.single__img { width: 100%; height: auto; display: block; }
-.single__caption { font-size: .8rem; color: var(--muted); margin-top: .6rem; }
-.single__content { font-size: 1.08rem; }
-.single__content p { margin: 0 0 1.4em; }
-.single__footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .85rem; }
-
-@media (max-width: 1000px) {
-	.news__grid { column-count: 2; }
-}
-@media (max-width: 600px) {
-	.news__grid { column-count: 1; }
-}
+.contact__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 96px); }
+.contact__details dl { margin: 0; }
+.contact__details dt { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); margin-top: 1.4rem; }
+.contact__details dd { margin: .25rem 0 0; }
 
 /* Footer ----------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--line); padding-block: clamp(40px, 6vw, 80px); margin-top: 4rem; }

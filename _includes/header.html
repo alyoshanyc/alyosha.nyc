@@ -11,9 +11,6 @@
 		<nav class="site-nav" id="primary-nav" aria-label="Primary">
 			<ul class="menu">
 				<li><a href="{{ '/about/' | relative_url }}">About</a></li>
-				{% for p in site.projects %}{% unless p.parent %}
-				<li><a href="{{ '/projects/' | append: p.id | append: '/' | relative_url }}">{{ p.title }}</a></li>
-				{% endunless %}{% endfor %}
 				<li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
 			</ul>
 		</nav>
