@@ -95,11 +95,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
    stacked (the 1-column/no-JS layout); gallery.js deals them into 2-4 columns
    at wider breakpoints. Each column stacks independently, so rows drift out
    of alignment as image heights differ - that stagger is the design. */
-.stream {
-	padding-inline: clamp(8px, 1.2vw, 16px);
-	padding-bottom: clamp(8px, 1.2vw, 16px);
-}
-/* Tiles butt together: no gutters between pictures, in either direction. */
+/* Tiles butt together: no gutters between pictures, in either direction,
+   and the stream runs full-bleed to the window edges. */
+.stream { padding: 0; }
 .stream--cols { display: flex; align-items: flex-start; }
 .stream__col {
 	flex: 1 1 0;
