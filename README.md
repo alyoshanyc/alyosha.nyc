@@ -20,7 +20,7 @@ You maintain these files and folders. Do not change other files for day-to-day u
 | `_data/home.yml` | The homepage layout. Four lists = the four desktop columns, top to bottom. |
 | `_data/menu.yml` | The menu items, and the photo folder for each gallery page. |
 
-All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/people/birdbeach/`), and one page per homepage photo (for example `alyosha.nyc/photos/people-birdbeach/`).
+All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/people/boatman/`), and one page per homepage photo (for example `alyosha.nyc/photos/people-boatman/`).
 
 ## Prepare a photo (on your computer, before you upload)
 
@@ -71,7 +71,7 @@ The homepage shows the photos listed in `_data/home.yml`. To edit it:
 The rules:
 
 - The four lists (`column01` to `column04`) are the four desktop columns, top to bottom.
-- Each line is `  - ` (two spaces, a dash, and a space) and then a path: the gallery folder, a `/`, and the file name. For example `  - people/birdbeach.jpg`. The folder shows the gallery that the photo comes from.
+- Each line is `  - ` (two spaces, a dash, and a space) and then a path: the gallery folder, a `/`, and the file name. For example `  - people/boatman.jpg`. The folder shows the gallery that the photo comes from.
 - The path must match the file exactly, including upper and lower case and the extension (`.jpg` is not `.JPG`). To get it right, open the photo on GitHub and copy its name from the top of the page.
 - Put the path in quotes if the file name contains a space: `  - "fashion/Anga 2.jpg"`.
 - To add a photo, add a line. The photo must be in a gallery folder first.

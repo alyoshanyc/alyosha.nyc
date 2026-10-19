@@ -2,8 +2,8 @@
 # so the maintainer only ever touches _data/home.yml and assets/images/.
 #
 # For every path listed in _data/home.yml (relative to assets/images/, for
-# example people/birdbeach.jpg) this creates /photos/<name>/ (name = the path
-# without extension, slugified: people-birdbeach), rendering _layouts/photo.html
+# example people/boatman.jpg) this creates /photos/<name>/ (name = the path
+# without extension, slugified: people-boatman), rendering _layouts/photo.html
 # with the image path plus prev/next links that follow the stream's display
 # order: the YAML columns interleaved row-major (col1[0], col2[0], col3[0],
 # col4[0], col1[1], ...), the same order the homepage uses on narrow screens.

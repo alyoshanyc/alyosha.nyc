@@ -1,69 +1,68 @@
 # Homepage photo stream.
 # Four lists = the four columns on a desktop screen, top to bottom.
 # Each line is one photo path relative to assets/images/. The folder is the
-# gallery the photo comes from, for example people/birdbeach.jpg.
+# gallery the photo comes from, for example people/boatman.jpg.
 # On narrow screens the site interleaves the columns row by row
 # (column01[0], column02[0], column03[0], column04[0], column01[1], ...)
 # and re-deals that order into 3, 2, or 1 columns.
 column01:
-  - people/birdbeach.jpg
+  - people/boatman.jpg
   - landscape/02700022.JPG
   - street-stories/02700013.JPG
   - street-stories/03180007.JPG
   - landscape/03190008.JPG
   - fashion/000066550021.jpg
-  - people/boatman.jpg
+  - people/cinestill_250_bw_16262_131819_294065_002940650014.jpg
   - street-stories/17760011.JPG
   - landscape/000023590008.jpg
   - street-stories/17770020.JPG
   - landscape/000023590014.jpg
   - street-stories/17770025.JPG
-  - people/cinestill_250_bw_16262_131819_294065_002940650014.jpg
-  - landscape/84910030.JPG
+  - people/cinestill_250_bw_16262_131819_294065_002940650026.jpg
+  - landscape/250221042744030006.jpg
   - street-stories/30560003.JPG
   - landscape/30560004.JPG
   - street-stories/40250007.JPG
   - landscape/44530025.JPG
-  - people/cinestill_250_bw_16262_131819_294065_002940650026.jpg
+  - people/cinestill_250_bw_16262_131819_294065_002940650029.jpg
   - street-stories/44540001.JPG
-  - street-stories/81380020.JPG
+  - "fashion/Anga 10.jpg"
   - street-stories/44860018.JPG
   - landscape/44860006.JPG
   - street-stories/44860031.JPG
 column02:
   - street-stories/45060002.JPG
-  - street-stories/230526000106730024.jpg
-  - people/cinestill_250_bw_16262_131819_294065_002940650029.jpg
+  - fashion/Caitlinjpg.jpg
   - street-stories/51300004.JPG
+  - people/crane.jpg
   - landscape/52750021.JPG
   - street-stories/52760010.JPG
   - "fashion/Anga 22.jpg"
   - street-stories/52760028.JPG
   - landscape/52750037.JPG
-  - people/crane.jpg
   - street-stories/52760034.JPG
   - landscape/54510024.JPG
+  - people/Donnett.jpg
   - street-stories/54510006.JPG
   - landscape/61500001.JPG
-  - street-stories/357530003_edited.jpg
   - street-stories/54510015.JPG
   - "fashion/Caitlin 1.jpg"
   - landscape/000066550027.jpg
   - street-stories/54510017.JPG
+  - street-stories/230526000106730024.jpg
   - street-stories/54510032.JPG
   - landscape/000066550031.jpg
-  - people/fishermen.jpg
   - street-stories/61490009.JPG
   - landscape/000080020019.jpg
   - "fashion/Caitlin 10.jpg"
 column03:
-  - fashion/Caitlinjpg.jpg
+  - landscape/45060022.JPG
   - street-stories/61500025.JPG
   - landscape/81380033.JPG
   - street-stories/000066560006.jpg
   - people/ilford_80_bw_16262_131819_294066_002940660009.jpg
-  - "fashion/Anga 2.jpg"
-  - "fashion/Anga 10.jpg"
+  - landscape/84910030.JPG
+  - street-stories/81380020.JPG
   - fashion/ilford_400_bw_16262_108702_245306_002453060001.jpg
   - street-stories/84910012.JPG
   - landscape/000128170016.jpg
@@ -73,20 +72,20 @@ column03:
   - street-stories/000128170022.jpg
   - people/Lanaman.jpg
   - landscape/230526000106720011.jpg
-  - people/Donnett.jpg
+  - street-stories/357530003_edited.jpg
   - landscape/230526000106720033.jpg
   - street-stories/230526000106720023.jpg
   - fashion/kodak_100_bw_16262_103719_232312_002322690004.jpg
   - street-stories/230526000106720030.jpg
   - landscape/240105000202680001.jpg
-  - people/moneyman.jpg
+  - street-stories/drummerbembe.jpg
   - street-stories/230526000106720038.jpg
   - landscape/240118000208200013.jpg
 column04:
   - landscape/240223000226300001.jpg
-  - landscape/45060022.JPG
+  - people/fishermen.jpg
   - fashion/kodak_100_bw_16262_103719_232312_002322690023.jpg
-  - landscape/250221042744030006.jpg
+  - "fashion/Anga 2.jpg"
   - street-stories/240118000208200017.jpg
   - street-stories/250221042744010008.jpg
   - people/pony.jpg
@@ -95,7 +94,7 @@ column04:
   - street-stories/250221042744030006.jpg
   - landscape/cityscape.jpg
   - street-stories/cinestill_250_bw_16262_131819_294065_002940650008.jpg
-  - street-stories/drummerbembe.jpg
+  - people/moneyman.jpg
   - landscape/ilford_hp5_plus_05_06_2025_000263240024.jpg
   - "fashion/SabrinaQ 1.jpg"
   - people/supermarketguy.jpg
