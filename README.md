@@ -19,6 +19,8 @@ You maintain these files and folders. Do not change other files for day-to-day u
 | `assets/images/people/`, `landscape/`, `fashion/`, `street-stories/` | The photos of each gallery page. |
 | `assets/images/home/column-1/` to `column-4/` | The homepage photos. One folder per desktop column, left to right. |
 | `_data/menu.yml` | The menu items, and the photo folder for each gallery page. |
+| `about.md` and `assets/images/about/` | The About page text and photo. |
+| `_config.yml` | The site name, email, and location (rare changes). |
 
 All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/people/boatman/`), and one page per homepage photo (for example `alyosha.nyc/photos/column-1-01-boatman/`).
 
@@ -30,7 +32,7 @@ The site does not resize or compress photos. Visitors download the file that you
 - **Size:** longest edge 1800 pixels. Do not upload camera or scanner originals (3000+ pixels). Do not go below 1200 pixels, or the photo can look soft on large screens.
 - **Quality:** 80-85 on a 0-100 scale. Most photos then come in under 500 KB. Photos with heavy film grain or fine detail can be larger. Do not lower the quality to make them smaller.
 - **Color space:** sRGB. Adobe RGB photos can look flat on phones and in some browsers.
-- **Rotation:** look at the exported file before you upload it. If it shows sideways in the gallery after upload, rotate it in your editor, export it again, and replace it.
+- **Rotation:** look at the exported file before you upload it. If it shows sideways on the site after upload, rotate it in your editor, export it again, and replace it (see [Replace a photo](#replace-a-photo)).
 - **File name:** use only letters, numbers, and `-` or `_`. Remove ` copy` and other leftovers. The name becomes part of the photo page address. On GitHub you cannot rename a photo after you upload it. To rename, delete it and upload it again.
 - **File size limit:** GitHub accepts files up to 25 MB in the browser. A correctly exported photo is far below this.
 
@@ -43,6 +45,10 @@ The site does not resize or compress photos. Visitors download the file that you
 5. Click **Commit changes**.
 
 The gallery page shows the new photos automatically. You do not list them in a file.
+
+## Replace a photo
+
+Upload the new version to the same folder with exactly the same file name, including upper and lower case and the extension. GitHub replaces the old file. The photo keeps its place and its page address.
 
 ## Remove a photo from a gallery
 
@@ -70,10 +76,24 @@ The homepage has four columns on a desktop screen. Each column is a folder:
 | 3 | `assets/images/home/column-3/` |
 | 4 (right) | `assets/images/home/column-4/` |
 
-The homepage has its own copies of its photos. To show a gallery photo on the homepage, upload the same file to a column folder too.
+The homepage has its own copies of its photos. To show a gallery photo on the homepage, upload the same file to a column folder too. The homepage and the gallery copies are independent: deleting one does not delete the other.
 
-- **Add a photo:** go to the column folder, click **Add file**, then **Upload files**, drag in the photos, and click **Commit changes** (the same as [Add photos to a gallery](#add-photos-to-a-gallery)).
-- **Remove a photo:** click the photo in its column folder, click **...**, then **Delete file**, and commit. The gallery copy, if there is one, stays.
+To add photos to the homepage:
+
+1. Open the repository on github.com.
+2. Click `assets`, then `images`, then `home`, then the column folder (for example `column-2`).
+3. Click **Add file** (top right), then **Upload files**.
+4. Drag the photos into the page. Give each a number at the start of its name to set its place in the column (see the rules below).
+5. Click **Commit changes**.
+
+To remove a photo from the homepage:
+
+1. Open the column folder and click the photo.
+2. Click the **...** menu (top right), then **Delete file**.
+3. Click **Commit changes**.
+
+The rules:
+
 - **Order in a column:** each column shows its photos top to bottom in alphanumeric order of the file names. Start each file name with a number: `01-boatman.jpg`, `02-pony.jpg`, and so on. The current photos already have these numbers. To put a photo between `03-` and `04-`, name it `03b-...jpg`.
 - **Move a photo to another column:** GitHub cannot move a file. Delete it from one column folder and upload it to the other.
 - **Even columns:** keep the four columns approximately equal in height, not in number of photos. A portrait photo is approximately 2.3 times as tall as a landscape photo. To make a column shorter, move a portrait photo out of it, or swap it for a landscape photo from a shorter column.
@@ -152,12 +172,18 @@ Edit `_data/menu.yml` on github.com: click the file, click the pencil icon (**Ed
 Do these checks:
 
 1. Open the **Actions** tab. Make sure the newest run is green. If it is still running (yellow), wait for it to finish.
-2. Reload the page in the browser. If the old page still shows, wait a minute and reload again.
+2. Reload the page in the browser. If the old page still shows, force a full reload: **Cmd-Shift-R** on a Mac, **Ctrl-F5** on Windows. Browsers keep parts of the site for up to 10 minutes.
 3. For the homepage: make sure the photo is in one of the four column folders, `assets/images/home/column-1/` to `column-4/`, not directly in `assets/images/home/`.
 
 ## Settings (rare changes)
 
-- Site name, email, location, and share image → `_config.yml`.
+Edit `_config.yml` on github.com (pencil icon, then **Commit changes** twice):
+
+- `title:` the site name in the top left corner and in browser tabs.
+- `email:` and `location:` the contact details in the footer and on the About page.
+- `hero_image:` the photo that shows when someone shares a link to the site. Use a path such as `/assets/images/home/column-1/01-boatman.jpg`.
+
+Do not change the other lines.
 
 ## Preview the site locally (developers)
 
