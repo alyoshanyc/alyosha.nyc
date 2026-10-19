@@ -1,0 +1,21 @@
+# Site menu, left to right (top to bottom on narrow screens).
+#   title:  the label in the menu.
+#   url:    the page address. Start and end with "/".
+#   folder: (gallery pages only) a folder under assets/images/. The page shows
+#           every photo in that folder and its subfolders, in alphanumeric order (photo-2 before photo-10).
+#           Each photo also gets its own page at <url><filename-without-extension>/.
+# An entry without a folder links to an existing page (for example about.md).
+- title: People
+  url: /people/
+  folder: people
+- title: Landscape
+  url: /landscape/
+  folder: landscape
+- title: Fashion
+  url: /fashion/
+  folder: fashion
+- title: Street-Stories
+  url: /street-stories/
+  folder: street-stories
+- title: About
+  url: /about/

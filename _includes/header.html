@@ -10,8 +10,11 @@
 
 		<nav class="site-nav" id="primary-nav" aria-label="Primary">
 			<ul class="menu">
-				<li><a href="{{ '/about/' | relative_url }}">About</a></li>
-				<li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+				{% for item in site.data.menu %}
+				{% assign active = false %}
+				{% if page.url == item.url or page.index_url == item.url %}{% assign active = true %}{% endif %}
+				<li><a href="{{ item.url | relative_url }}"{% if active %} class="is-active" aria-current="page"{% endif %}>{{ item.title }}</a></li>
+				{% endfor %}
 			</ul>
 		</nav>
 	</div>

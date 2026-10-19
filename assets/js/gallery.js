@@ -8,6 +8,45 @@
 	// home layout. Their order is the display order at any column count.
 	var items = Array.prototype.slice.call(stream.querySelectorAll(".stream__item"));
 	var current = 0;
+	var byColumn = stream.getAttribute("data-order") === "columns";
+
+	// Height of each tile per unit of column width (data-ratio = height/width).
+	// A tile without a ratio counts as square.
+	var heights = items.map(function (item) {
+		return parseFloat(item.getAttribute("data-ratio")) || 1;
+	});
+
+	// Split the sequence into n consecutive runs (one per column, read top to
+	// bottom) so the column heights come out as even as possible: dynamic
+	// programming over the break points, minimizing the sum of squared column
+	// heights. Returns the column index of each item.
+	function balancedColumns(n) {
+		var len = heights.length;
+		n = Math.min(n, len);
+		var prefix = [0];
+		heights.forEach(function (h, i) { prefix.push(prefix[i] + h); });
+		// cost[k][j]: best cost of the first j items in k columns; cut[k][j]: start of column k.
+		var cost = [], cut = [];
+		for (var k = 0; k <= n; k++) { cost.push([]); cut.push([]); }
+		cost[0][0] = 0;
+		for (var j = 1; j <= len; j++) { cost[0][j] = Infinity; }
+		for (k = 1; k <= n; k++) {
+			for (j = 0; j <= len; j++) {
+				cost[k][j] = Infinity;
+				for (var i = k - 1; i < j; i++) {
+					var h = prefix[j] - prefix[i];
+					var c = cost[k - 1][i] + h * h;
+					if (c < cost[k][j]) { cost[k][j] = c; cut[k][j] = i; }
+				}
+			}
+		}
+		var target = new Array(len);
+		for (k = n, j = len; k > 0; k--) {
+			for (i = cut[k][j]; i < j; i++) { target[i] = k - 1; }
+			j = cut[k][j];
+		}
+		return target;
+	}
 
 	function columnCount() {
 		var w = window.innerWidth;
@@ -31,11 +70,19 @@
 			cols.push(col);
 		}
 
+		var balanced = byColumn ? balancedColumns(n) : null;
 		items.forEach(function (item, i) {
-			// At 4 columns, honor the curated column from _data/gallery.yml
-			// (data-col) so the YAML is reproduced exactly even when its
-			// columns have unequal lengths; otherwise deal round-robin.
-			var target = n === 4 ? (parseInt(item.getAttribute("data-col"), 10) - 1) : (i % n);
+			// Themed galleries (data-order="columns") read down each column,
+			// with the breaks balanced by height (see balancedColumns).
+			// Otherwise, at 4 columns, honor the curated column from
+			// _data/gallery.yml (data-col) so the YAML is reproduced exactly
+			// even when its columns have unequal lengths; else deal round-robin.
+			var target;
+			if (byColumn) {
+				target = balanced[i];
+			} else {
+				target = n === 4 ? (parseInt(item.getAttribute("data-col"), 10) - 1) : (i % n);
+			}
 			cols[target].appendChild(item);
 		});
 
