@@ -29,8 +29,8 @@ module Alyosha
     COLUMNS = 4
 
     def generate(site)
-      columns = (1..COLUMNS).map do |n|
-        ImageUtils.images_in(site, "home/column-#{n}").map do |f|
+      columns = ImageUtils.columns_in(site, "home", COLUMNS).map do |files|
+        files.map do |f|
           rel = f.relative_path.delete_prefix("/assets/images/home/")
           slug = Jekyll::Utils.slugify(rel.delete_suffix(f.extname))
           width, height = ImageUtils.jpeg_size(f.path)
@@ -40,10 +40,7 @@ module Alyosha
       end
       site.data["home_columns"] = columns
 
-      sequence = []
-      (0...columns.map(&:length).max.to_i).each do |row|
-        columns.each { |col| sequence << col[row] if col[row] }
-      end
+      sequence = ImageUtils.row_major(columns)
 
       sequence.each_with_index do |photo, i|
         prev_p = i > 0 ? sequence[i - 1] : nil

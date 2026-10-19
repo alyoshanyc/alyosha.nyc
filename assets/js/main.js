@@ -19,3 +19,29 @@
 		}
 	});
 })();
+
+(function () {
+	"use strict";
+
+	// "..." button in the menu bar: opens the list of extra menu entries
+	// (`extra: true` in _data/menu.yml). Closes on a click outside or Escape.
+	var more = document.querySelector(".menu__more-toggle");
+	var list = document.getElementById("menu-extra");
+	if (!more || !list) { return; }
+
+	function setOpen(open) {
+		list.classList.toggle("is-open", open);
+		more.setAttribute("aria-expanded", open ? "true" : "false");
+	}
+
+	more.addEventListener("click", function (e) {
+		e.stopPropagation();
+		setOpen(!list.classList.contains("is-open"));
+	});
+	document.addEventListener("click", function (e) {
+		if (!list.contains(e.target)) { setOpen(false); }
+	});
+	document.addEventListener("keydown", function (e) {
+		if (e.key === "Escape") { setOpen(false); }
+	});
+})();
