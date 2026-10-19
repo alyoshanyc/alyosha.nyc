@@ -7,7 +7,7 @@ url: "https://alyosha.nyc"
 # For an apex/custom domain leave it empty.
 baseurl: ""
 
-# Gallery contact details (edit here; used in footer + contact page)
+# Contact details (edit here; used in the footer and on the About page)
 email: alyosha.smolarski@gmail.com
 location: New York, NY
 

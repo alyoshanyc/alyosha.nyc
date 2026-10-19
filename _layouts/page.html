@@ -1,11 +1,20 @@
 ---
 layout: default
 ---
-<article class="page wrap">
+{% comment %} A page with `image:` in its front matter (for example about.md)
+   shows that photo beside the text, and uses it as its share image.
+   `contact: true` adds the contact details from _config.yml below the text. {% endcomment %}
+<article class="page wrap{% if page.image %} page--with-image{% endif %}">
 	<header class="page__header">
 		<h1 class="page__title">{{ page.title }}</h1>
 	</header>
+	{% if page.image %}
+	<figure class="page__figure">
+		<img class="page__img" src="{{ page.image | relative_url }}" alt="">
+	</figure>
+	{% endif %}
 	<div class="page__content prose">
 		{{ content }}
+		{% if page.contact %}{% include contact-details.html %}{% endif %}
 	</div>
 </article>

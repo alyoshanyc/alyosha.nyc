@@ -1,9 +1,5 @@
 ---
-layout: contact
-title: Contact
+layout: redirect
 permalink: /contact/
+redirect_to: /about/
 ---
-{:.prose__lead}
-Available for commissions: portraits, editorial, events, and travel. For bookings and prints, get in touch.
-
-When you write, include the kind of shoot you have in mind, rough dates and location, and any references that help.

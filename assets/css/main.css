@@ -75,8 +75,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .site-brand:hover { text-decoration: none; }
 
 .site-nav .menu {
-	list-style: none; display: flex; gap: 2.4rem; margin: 0; padding: 0;
+	list-style: none; display: flex; gap: clamp(1.2rem, 2.2vw, 2.4rem); margin: 0; padding: 0;
 }
+.site-nav a.is-active { text-decoration: underline; text-underline-offset: .35em; }
 .site-nav a {
 	font-family: var(--sans); font-weight: 400; font-size: 0.9rem; letter-spacing: 0.04em;
 }
@@ -157,11 +158,28 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* Pages ------------------------------------------------------ */
 .page { padding-block: clamp(48px, 8vw, 120px); }
 .page__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); margin: 0 0 2rem; }
+.page__empty { color: var(--muted); }
+/* Page with a photo (front matter `image:`): photo left, text right; stacked on narrow screens. */
+.page--with-image {
+	display: grid; grid-template-columns: minmax(0, 21%) minmax(0, 1fr);
+	grid-template-rows: auto 1fr;
+	column-gap: clamp(40px, 8vw, 120px); align-items: start;
+}
+.page--with-image .page__header { grid-column: 2; grid-row: 1; }
+/* Cap height of the title lines up with the top edge of the photo. */
+.page--with-image .page__title { line-height: 1; margin-top: -0.09em; }
+@supports (text-box: trim-both cap alphabetic) {
+	.page--with-image .page__title { text-box: trim-start cap alphabetic; margin-top: 0; }
+}
+.page--with-image .page__figure { grid-column: 1; grid-row: 1 / span 2; margin: 0; }
+.page--with-image .page__content { grid-column: 2; grid-row: 2; }
+/* Never crop the page photo: it keeps its own aspect ratio at every width. */
+.page__img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
 .prose { max-width: 62ch; font-size: 1.05rem; }
 .prose__lead { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; }
 .prose p { margin: 0 0 1.4em; }
 
-.contact__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 96px); }
+.contact__details { margin-top: 2.4rem; }
 .contact__details dl { margin: 0; }
 .contact__details dt { text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--muted); margin-top: 1.4rem; }
 .contact__details dd { margin: .25rem 0 0; }
@@ -197,7 +215,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	/* Hamburger morphs into an X while the menu is open. */
 	.nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 	.nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
-	.contact__grid { grid-template-columns: 1fr; }
+	.page--with-image { display: block; }
+	.page--with-image .page__figure { margin: 0 0 2rem; }
 	.site-footer__inner { grid-template-columns: 1fr; }
 	.site-footer__legal { text-align: left; }
 }
