@@ -17,7 +17,7 @@ You maintain these files and folders. Do not change other files for day-to-day u
 | File or folder | Purpose |
 |---|---|
 | `assets/images/people/`, `landscape/`, `fashion/`, `street-stories/` | The photos of each gallery page. |
-| `_data/gallery.yml` | The homepage layout. Four lists = the four desktop columns, top to bottom. |
+| `_data/home.yml` | The homepage layout. Four lists = the four desktop columns, top to bottom. |
 | `_data/menu.yml` | The menu items, and the photo folder for each gallery page. |
 
 All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/people/birdbeach/`), and one page per homepage photo (for example `alyosha.nyc/photos/people-birdbeach/`).
@@ -49,7 +49,7 @@ The gallery page shows the new photos automatically. You do not list them in a f
 1. Go to the gallery folder and click the photo.
 2. Click the **...** menu (top right), then **Delete file**.
 3. Click **Commit changes**.
-4. If the photo is also on the homepage, remove its line from `_data/gallery.yml` (see [Change the homepage](#change-the-homepage)). If you do not, the homepage skips the photo and the build log shows a warning.
+4. If the photo is also on the homepage, remove its line from `_data/home.yml` (see [Change the homepage](#change-the-homepage)). If you do not, the homepage skips the photo and the build log shows a warning.
 
 ## Gallery order and columns
 
@@ -61,9 +61,9 @@ The gallery page shows the new photos automatically. You do not list them in a f
 
 ## Change the homepage
 
-The homepage shows the photos listed in `_data/gallery.yml`. To edit it:
+The homepage shows the photos listed in `_data/home.yml`. To edit it:
 
-1. Open `_data` on github.com, then click `gallery.yml`.
+1. Open `_data` on github.com, then click `home.yml`.
 2. Click the pencil icon (**Edit this file**, top right).
 3. Make the change. The rules are below.
 4. Click **Commit changes**, then **Commit changes** again in the dialog.
@@ -138,7 +138,7 @@ The photo is `assets/images/about/about-mailbox.jpg`. The `image:` line in `abou
 
 ## Change the menu
 
-Edit `_data/menu.yml` the same way as `gallery.yml` (pencil icon, then **Commit changes**). The entries are in menu order, left to right.
+Edit `_data/menu.yml` the same way as `home.yml` (pencil icon, then **Commit changes**). The entries are in menu order, left to right.
 
 - To rename a menu item, change its `title`.
 - To move a menu item, move its lines (`- title`, `url`, and `folder` if there is one) together.
@@ -154,7 +154,7 @@ Do these checks:
 
 1. Open the **Actions** tab. Make sure the newest run is green. If it is still running (yellow), wait for it to finish.
 2. Reload the page in the browser. If the old page still shows, wait a minute and reload again.
-3. For the homepage: make sure the path in `_data/gallery.yml` matches the file name exactly (see [Change the homepage](#change-the-homepage)). Click the newest run in **Actions**, then **build**, to see a warning for each path that has no file.
+3. For the homepage: make sure the path in `_data/home.yml` matches the file name exactly (see [Change the homepage](#change-the-homepage)). Click the newest run in **Actions**, then **build**, to see a warning for each path that has no file.
 
 ## Settings (rare changes)
 

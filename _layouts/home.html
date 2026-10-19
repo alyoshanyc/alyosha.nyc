@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% comment %} Wing Shya-style photo stream. Curation lives in _data/gallery.yml:
+{% comment %} Wing Shya-style photo stream. Curation lives in _data/home.yml:
    four named columns of image paths relative to assets/images/ (for example
    people/birdbeach.jpg), shown verbatim on desktop (4 columns). The folder in
    each path names the gallery the photo comes from. The markup
@@ -10,10 +10,10 @@ layout: default
    3, 2, or 1 columns (see assets/js/gallery.js). Each item keeps its home
    column in data-col so the 4-column view matches the YAML exactly even when
    columns are unequal lengths. {% endcomment %}
-{% assign c1 = site.data.gallery.column01 %}
-{% assign c2 = site.data.gallery.column02 %}
-{% assign c3 = site.data.gallery.column03 %}
-{% assign c4 = site.data.gallery.column04 %}
+{% assign c1 = site.data.home.column01 %}
+{% assign c2 = site.data.home.column02 %}
+{% assign c3 = site.data.home.column03 %}
+{% assign c4 = site.data.home.column04 %}
 {% assign max = c1.size %}
 {% if c2.size > max %}{% assign max = c2.size %}{% endif %}
 {% if c3.size > max %}{% assign max = c3.size %}{% endif %}
@@ -55,4 +55,4 @@ layout: default
 	{% endfor %}
 	{% endfor %}
 </section>
-<script src="{{ '/assets/js/gallery.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/gallery.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

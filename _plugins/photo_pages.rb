@@ -1,7 +1,7 @@
 # Generates a dedicated page per curated photo (like wingshya.com/photographs/d/41),
-# so the maintainer only ever touches _data/gallery.yml and assets/images/.
+# so the maintainer only ever touches _data/home.yml and assets/images/.
 #
-# For every path listed in _data/gallery.yml (relative to assets/images/, for
+# For every path listed in _data/home.yml (relative to assets/images/, for
 # example people/birdbeach.jpg) this creates /photos/<name>/ (name = the path
 # without extension, slugified: people-birdbeach), rendering _layouts/photo.html
 # with the image path plus prev/next links that follow the stream's display
@@ -25,10 +25,10 @@ module Alyosha
     priority :low
 
     def generate(site)
-      gallery = site.data["gallery"]
-      return unless gallery
+      home = site.data["home"]
+      return unless home
 
-      columns = gallery.keys.sort.map { |k| Array(gallery[k]) }
+      columns = home.keys.sort.map { |k| Array(home[k]) }
       sequence = []
       (0...columns.map(&:length).max.to_i).each do |row|
         columns.each { |col| sequence << col[row] if col[row] }
