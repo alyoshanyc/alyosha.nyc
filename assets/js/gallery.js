@@ -61,6 +61,25 @@
 		if (n === current) { return; }
 		current = n;
 
+		// Work out every item's column first, and only then touch the page:
+		// a bad target (for example a stale cached script meeting new markup)
+		// falls back to round-robin instead of leaving the stream empty.
+		var balanced = byColumn ? balancedColumns(n) : null;
+		var targets = items.map(function (item, i) {
+			// Themed galleries (data-order="columns") read down each column,
+			// with the breaks balanced by height (see balancedColumns).
+			// Otherwise, at 4 columns, honor the curated column from
+			// assets/images/home/column-N (data-col) so the folders are reproduced exactly
+			// even when its columns have unequal lengths; else deal round-robin.
+			var target;
+			if (byColumn) {
+				target = balanced[i];
+			} else {
+				target = n === 4 ? (parseInt(item.getAttribute("data-col"), 10) - 1) : (i % n);
+			}
+			return target >= 0 && target < n ? target : i % n;
+		});
+
 		stream.innerHTML = "";
 		var cols = [];
 		for (var i = 0; i < n; i++) {
@@ -69,22 +88,7 @@
 			stream.appendChild(col);
 			cols.push(col);
 		}
-
-		var balanced = byColumn ? balancedColumns(n) : null;
-		items.forEach(function (item, i) {
-			// Themed galleries (data-order="columns") read down each column,
-			// with the breaks balanced by height (see balancedColumns).
-			// Otherwise, at 4 columns, honor the curated column from
-			// _data/gallery.yml (data-col) so the YAML is reproduced exactly
-			// even when its columns have unequal lengths; else deal round-robin.
-			var target;
-			if (byColumn) {
-				target = balanced[i];
-			} else {
-				target = n === 4 ? (parseInt(item.getAttribute("data-col"), 10) - 1) : (i % n);
-			}
-			cols[target].appendChild(item);
-		});
+		items.forEach(function (item, i) { cols[targets[i]].appendChild(item); });
 
 		stream.classList.add("stream--cols");
 	}
