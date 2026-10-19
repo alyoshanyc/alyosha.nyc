@@ -1,10 +1,12 @@
-# Generates one gallery page per themed menu entry (People, Landscape, ...).
+# Generates one gallery page per gallery entry in _data/menu.yml (an entry
+# with a `folder`: People, Landscape, Jamaica, ...).
 #
-# Every entry in _data/menu.yml that has a `folder` gets a page at its `url`,
-# rendering _layouts/theme.html with all images under assets/images/<folder>/
-# (subfolders included), in natural alphanumeric order. Each image gets a page
-# at <url><name>/ (name = filename without extension, slugified), rendering
-# _layouts/photo.html with prev/next in gallery order and Index back to <url>.
+# A gallery has four columns, like the homepage: assets/images/<folder>/
+# column-1 ... column-4, each top to bottom in natural alphanumeric order.
+# The page renders _layouts/theme.html. Each image also gets a page at
+# <url><name>/ (name = filename without extension, slugified), rendering
+# _layouts/photo.html with prev/next in display order (columns interleaved
+# row by row) and Index back to <url>.
 module Alyosha
   class ThemePage < Jekyll::Page
     def initialize(site, dir, data)
@@ -28,20 +30,25 @@ module Alyosha
         next if folder.empty?
 
         url = item["url"].to_s
-        files = ImageUtils.images_in(site, folder)
-
-        photos = files.map do |f|
-          slug = Jekyll::Utils.slugify(f.basename)
-          width, height = ImageUtils.jpeg_size(f.path)
-          { "image" => f.relative_path, "url" => "#{url}#{slug}/", "width" => width, "height" => height }
+        used = {}
+        columns = ImageUtils.columns_in(site, folder).each_with_index.map do |files, ci|
+          files.map do |f|
+            slug = Jekyll::Utils.slugify(f.basename)
+            # The same file name in two columns: keep both pages apart.
+            slug = "column-#{ci + 1}-#{slug}" if used[slug]
+            used[slug] = true
+            width, height = ImageUtils.jpeg_size(f.path)
+            { "image" => f.relative_path, "url" => "#{url}#{slug}/", "width" => width, "height" => height }
+          end
         end
 
         site.pages << ThemePage.new(site, url, {
           "layout" => "theme",
           "title" => item["title"],
-          "photos" => photos,
+          "columns" => columns,
         })
 
+        photos = ImageUtils.row_major(columns)
         photos.each_with_index do |photo, i|
           prev_p = i > 0 ? photos[i - 1] : nil
           next_p = i < photos.length - 1 ? photos[i + 1] : nil

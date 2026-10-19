@@ -1,10 +1,13 @@
 # Site menu, left to right (top to bottom on narrow screens).
 #   title:  the label in the menu.
 #   url:    the page address. Start and end with "/".
-#   folder: (gallery pages only) a folder under assets/images/. The page shows
-#           every photo in that folder and its subfolders, in alphanumeric order (photo-2 before photo-10).
-#           Each photo also gets its own page at <url><filename-without-extension>/.
+#   folder: (gallery pages only) a folder under assets/images/. Its subfolders
+#           column-1 to column-4 are the four desktop columns, each shown top
+#           to bottom in alphanumeric order (photo-2 before photo-10). Each
+#           photo also gets its own page at <url><filename-without-extension>/.
 # An entry without a folder links to an existing page (for example about.md).
+#   extra:  (optional) true = not in the menu bar; listed after a click on the
+#           "..." button at the right of the menu.
 - title: People
   url: /people/
   folder: people
@@ -21,3 +24,15 @@
   url: /about/
 - title: Home
   url: /
+- title: Jamaica
+  url: /jamaica/
+  folder: jamaica
+  extra: true
+- title: Guadeloupe
+  url: /guadeloupe/
+  folder: guadeloupe
+  extra: true
+- title: France
+  url: /france/
+  folder: france
+  extra: true

@@ -3,41 +3,7 @@ layout: default
 ---
 {% comment %} Wing Shya-style photo stream. The photos come from the folders
    assets/images/home/column-1 ... column-4 (see _plugins/home_pages.rb),
-   shown as the four desktop columns, each top to bottom in file-name order.
-   The markup flattens the columns row-major (col1[0], col2[0], col3[0],
-   col4[0], col1[1], ...) so narrower layouts re-deal that sequence
-   round-robin into 3, 2, or 1 columns (see assets/js/gallery.js). Each item
-   keeps its column in data-col so the 4-column view matches the folders
-   exactly even when columns are unequal lengths. {% endcomment %}
-{% assign columns = site.data.home_columns %}
-{% assign max = 0 %}
-{% for col in columns %}{% if col.size > max %}{% assign max = col.size %}{% endif %}{% endfor %}
-{% comment %} Load budget: the first EAGER_LIMIT photos in display order load
-   up front; every photo after that lazy-loads and fades in as the visitor
-   scrolls, so a growing stream never front-loads the whole page. {% endcomment %}
-{% assign eager_limit = 20 %}
-{% assign seq = 0 %}
-{% if max > 0 %}
-<section class="stream" id="stream">
-	{% for row in (1..max) %}
-	{% assign ridx = forloop.index0 %}
-	{% for col in columns %}
-	{% assign photo = col[ridx] %}
-	{% if photo %}
-	<div class="stream__item" data-col="{{ forloop.index }}">
-		<a class="stream__link" href="{{ photo.url | relative_url }}">
-			{% if seq < eager_limit %}
-			<img class="stream__img" src="{{ photo.image | relative_url }}" alt=""{% if photo.width %} width="{{ photo.width }}" height="{{ photo.height }}"{% endif %}
-				{% if row == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}>
-			{% else %}
-			<img class="stream__img stream__img--fade" src="{{ photo.image | relative_url }}" alt=""{% if photo.width %} width="{{ photo.width }}" height="{{ photo.height }}"{% endif %} loading="lazy">
-			{% endif %}
-		</a>
-	</div>
-	{% assign seq = seq | plus: 1 %}
-	{% endif %}
-	{% endfor %}
-	{% endfor %}
-</section>
-<script src="{{ '/assets/js/gallery.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
-{% endif %}
+   shown as the four desktop columns, each top to bottom in file-name order. {% endcomment %}
+{% assign count = 0 %}
+{% for col in site.data.home_columns %}{% assign count = count | plus: col.size %}{% endfor %}
+{% if count > 0 %}{% include stream.html columns=site.data.home_columns %}{% endif %}

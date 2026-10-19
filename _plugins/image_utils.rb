@@ -14,6 +14,22 @@ module Alyosha
         .sort_by { |f| natural_key(f.relative_path) }
     end
 
+    # The photo columns of a folder: <folder>/column-1 ... column-<count>, each
+    # a list of static files top to bottom in natural alphanumeric order. Logs
+    # a warning for images directly in <folder>, which no column shows.
+    def columns_in(site, folder, count = 4)
+      loose = images_in(site, folder).reject { |f| f.relative_path.match?(%r{/column-\d+/}) }
+      loose.each { |f| Jekyll.logger.warn "columns:", "#{f.relative_path} is not in a column-N folder - not shown" }
+      (1..count).map { |n| images_in(site, "#{folder}/column-#{n}") }
+    end
+
+    # The display order of columns: interleaved row by row (col1[0], col2[0],
+    # col3[0], col4[0], col1[1], ...), the order narrow screens use. Previous
+    # and next on the photo pages follow it.
+    def row_major(columns)
+      (0...columns.map(&:length).max.to_i).flat_map { |row| columns.filter_map { |col| col[row] } }
+    end
+
     # Alphanumeric order as a file browser shows it: case-insensitive, and
     # digit runs compare as numbers, so photo-2 sorts before photo-10.
     def natural_key(path)

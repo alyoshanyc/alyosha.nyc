@@ -2,7 +2,7 @@
 
 Personal site for the photographer **Alyosha**. The site uses [Jekyll](https://jekyllrb.com) and GitHub Pages. A commit to `main` builds and deploys the site automatically.
 
-The homepage is one photo stream, in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs). The menu has four gallery pages (People, Landscape, Fashion, and Street-Stories) plus an About page with the contact details. Desktop screens show 4 columns. Narrow screens show 3, 2, or 1 column. Each photo links to its own page, with previous/next navigation.
+The homepage is one photo stream, in the style of [wingshya.com/photographs](https://www.wingshya.com/photographs). The menu has four gallery pages (People, Landscape, Fashion, and Street-Stories), an About page with the contact details, and a Home link. A "..." button at the right of the menu opens more galleries (Jamaica, Guadeloupe, and France). Desktop screens show 4 columns. Narrow screens show 3, 2, or 1 column. Each photo links to its own page, with previous/next navigation.
 
 ## How you update the site
 
@@ -16,13 +16,13 @@ You maintain these files and folders. Do not change other files for day-to-day u
 
 | File or folder | Purpose |
 |---|---|
-| `assets/images/people/`, `landscape/`, `fashion/`, `street-stories/` | The photos of each gallery page. |
 | `assets/images/home/column-1/` to `column-4/` | The homepage photos. One folder per desktop column, left to right. |
-| `_data/menu.yml` | The menu items, and the photo folder for each gallery page. |
+| `assets/images/<gallery>/column-1/` to `column-4/` | The photos of each gallery page, the same way (for example `assets/images/people/column-1/`). |
+| `_data/menu.yml` | The menu items, the photo folder of each gallery, and which items are in the "..." list. |
 | `about.md` and `assets/images/about/` | The About page text and photo. |
 | `_config.yml` | The site name, email, and location (rare changes). |
 
-All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/people/boatman/`), and one page per homepage photo (for example `alyosha.nyc/photos/column-1-01-boatman/`).
+All other content is automatic. The build creates the gallery pages, one page per gallery photo (for example `alyosha.nyc/jamaica/boatman/`), and one page per homepage photo (for example `alyosha.nyc/photos/column-1-01-boatman/`).
 
 ## Prepare a photo (on your computer, before you upload)
 
@@ -36,68 +36,53 @@ The site does not resize or compress photos. Visitors download the file that you
 - **File name:** use only letters, numbers, and `-` or `_`. Remove ` copy` and other leftovers. The name becomes part of the photo page address. On GitHub you cannot rename a photo after you upload it. To rename, delete it and upload it again.
 - **File size limit:** GitHub accepts files up to 25 MB in the browser. A correctly exported photo is far below this.
 
-## Add photos to a gallery
+## Photo columns
+
+The homepage and every gallery page show their photos in four columns on a desktop screen. Each column is a folder. You manage a page by uploading photos to its column folders and deleting them there.
+
+| Page | Column folders (left to right) |
+|---|---|
+| Homepage | `assets/images/home/column-1/` to `column-4/` |
+| People | `assets/images/people/column-1/` to `column-4/` |
+| Landscape | `assets/images/landscape/column-1/` to `column-4/` |
+| Fashion | `assets/images/fashion/column-1/` to `column-4/` |
+| Street-Stories | `assets/images/street-stories/column-1/` to `column-4/` |
+| Jamaica | `assets/images/jamaica/column-1/` to `column-4/` |
+| Guadeloupe | `assets/images/guadeloupe/column-1/` to `column-4/` |
+| France | `assets/images/france/column-1/` to `column-4/` |
+
+The rules:
+
+- **Order in a column:** each column shows its photos top to bottom in alphanumeric order of the file names (`photo-2.jpg` before `photo-10.jpg`). To set the order, start each file name with a number: `01-boatman.jpg`, `02-pony.jpg`, and so on. To put a photo between `03-` and `04-`, name it `03b-...jpg`.
+- **Only column folders:** put every photo in a `column-1` to `column-4` folder. A photo directly in the page folder (for example `assets/images/people/boatman.jpg`) does not show.
+- **Copies are independent:** to show a photo on two pages (for example People and the homepage), upload it to a column folder of each page. Deleting one copy does not delete the other.
+- **Even columns:** keep the four columns approximately equal in height, not in number of photos. A portrait photo is approximately 2.3 times as tall as a landscape photo. To make a column shorter, move a portrait photo out of it, or swap it for a landscape photo from a shorter column.
+- **Move a photo to another column:** GitHub cannot move a file. Delete it from one column folder and upload it to the other.
+- **Narrow screens:** the site interleaves the columns row by row (first photo of each column, then second photo of each column, and so on). It then re-deals that order into 3, 2, or 1 columns. Previous/next on the photo pages follow the same order.
+- **Empty page:** a gallery with no photos shows "Photos coming soon."
+- **The `.gitkeep` files:** an empty column folder contains a `.gitkeep` file, because GitHub does not keep empty folders. Leave it. It does not show on the site.
+
+## Add photos
 
 1. Open the repository on github.com.
-2. Go to the gallery folder: click `assets`, then `images`, then the gallery (for example `people`).
+2. Go to the column folder: click `assets`, then `images`, then the page folder (for example `people` or `home`), then the column (for example `column-2`).
 3. Click **Add file** (top right), then **Upload files**.
 4. Drag the photos into the page. You can upload many photos at one time.
 5. Click **Commit changes**.
 
-The gallery page shows the new photos automatically. You do not list them in a file.
+The page shows the new photos automatically. You do not list them in a file.
 
 ## Replace a photo
 
-Upload the new version to the same folder with exactly the same file name, including upper and lower case and the extension. GitHub replaces the old file. The photo keeps its place and its page address.
+Upload the new version to the same column folder with exactly the same file name, including upper and lower case and the extension. GitHub replaces the old file. The photo keeps its place and its page address.
 
-## Remove a photo from a gallery
+## Remove a photo
 
-1. Go to the gallery folder and click the photo.
-2. Click the **...** menu (top right), then **Delete file**.
-3. Click **Commit changes**.
-4. If the same photo is also on the homepage, delete it there too (see [Change the homepage](#change-the-homepage)). The homepage has its own copy, so deleting a gallery photo does not remove it from the homepage.
-
-## Gallery order and columns
-
-- A gallery shows its photos in alphanumeric order of the file names (`photo-2.jpg` before `photo-10.jpg`). To set the order, start the file names with numbers: `01-boatman.jpg`, `02-pony.jpg`, and so on.
-- The photos read down the columns: column 1 top to bottom, then column 2, and so on. The site selects the column breaks that make the column heights as equal as possible. A portrait photo is approximately 2.3 times as tall as a landscape photo, so the columns can contain different numbers of photos. Narrow screens split the same order into 3, 2, or 1 columns.
-- The columns cannot always end level. A column breaks only between two photos, and the order is fixed. To make the columns end more evenly, change the order of the files, or add or remove a photo.
-- Each photo has its own page. Previous/next follow the gallery order. **Index** goes back to the gallery.
-- A gallery with no photos shows "Photos coming soon."
-
-## Change the homepage
-
-The homepage has four columns on a desktop screen. Each column is a folder:
-
-| Column | Folder |
-|---|---|
-| 1 (left) | `assets/images/home/column-1/` |
-| 2 | `assets/images/home/column-2/` |
-| 3 | `assets/images/home/column-3/` |
-| 4 (right) | `assets/images/home/column-4/` |
-
-The homepage has its own copies of its photos. To show a gallery photo on the homepage, upload the same file to a column folder too. The homepage and the gallery copies are independent: deleting one does not delete the other.
-
-To add photos to the homepage:
-
-1. Open the repository on github.com.
-2. Click `assets`, then `images`, then `home`, then the column folder (for example `column-2`).
-3. Click **Add file** (top right), then **Upload files**.
-4. Drag the photos into the page. Give each a number at the start of its name to set its place in the column (see the rules below).
-5. Click **Commit changes**.
-
-To remove a photo from the homepage:
-
-1. Open the column folder and click the photo.
+1. Go to the column folder and click the photo.
 2. Click the **...** menu (top right), then **Delete file**.
 3. Click **Commit changes**.
 
-The rules:
-
-- **Order in a column:** each column shows its photos top to bottom in alphanumeric order of the file names. Start each file name with a number: `01-boatman.jpg`, `02-pony.jpg`, and so on. The current photos already have these numbers. To put a photo between `03-` and `04-`, name it `03b-...jpg`.
-- **Move a photo to another column:** GitHub cannot move a file. Delete it from one column folder and upload it to the other.
-- **Even columns:** keep the four columns approximately equal in height, not in number of photos. A portrait photo is approximately 2.3 times as tall as a landscape photo. To make a column shorter, move a portrait photo out of it, or swap it for a landscape photo from a shorter column.
-- **Narrow screens:** the site interleaves the columns row by row (first photo of each column, then second photo of each column, and so on). It then re-deals that order into 3, 2, or 1 columns.
+If the same photo is on another page too, delete it there as well. Each page has its own copy.
 
 ## Change the About page
 
@@ -151,21 +136,43 @@ The contact details (Email, Based in, Available for) show below the text.
 The photo is `assets/images/about/about-mailbox.jpg`. The `image:` line in `about.md` selects it. The photo also shows when someone shares a link to the About page.
 
 1. Prepare the new photo the same as a gallery photo (see [Prepare a photo](#prepare-a-photo-on-your-computer-before-you-upload)).
-2. Upload it to `assets/images/about/` (see [Add photos to a gallery](#add-photos-to-a-gallery)).
+2. Upload it to `assets/images/about/` (the same steps as [Add photos](#add-photos)).
 3. In `about.md`, change the `image:` line to the new file name, for example `image: /assets/images/about/new-photo.jpg`.
 4. Optional: delete the old photo.
 
 ## Change the menu
 
-Edit `_data/menu.yml` on github.com: click the file, click the pencil icon (**Edit this file**, top right), make the change, then click **Commit changes** twice. The entries are in menu order, left to right.
+Edit `_data/menu.yml` on github.com: click the file, click the pencil icon (**Edit this file**, top right), make the change, then click **Commit changes** twice.
+
+Each menu item is a group of lines that starts with `- title:`. The items are in menu order, left to right. An item can have these lines:
+
+| Line | Meaning |
+|---|---|
+| `- title: Jamaica` | The label in the menu. |
+| `  url: /jamaica/` | The page address. Start and end it with `/`. |
+| `  folder: jamaica` | Only for a gallery: its folder in `assets/images/`. |
+| `  extra: true` | Optional. The item is not in the menu bar. It is in the list that opens when a visitor clicks "..." at the right of the menu. |
+
+Keep the two spaces at the start of each line after the first.
 
 - To rename a menu item, change its `title`.
-- To move a menu item, move its lines (`- title`, `url`, and `folder` if there is one) together.
-- About is a normal page, not a gallery. Its entry has no `folder`. See [Change the About page](#change-the-about-page).
-- To add a gallery:
-  1. Make the folder: open `assets/images`, click **Add file**, then **Create new file**. Type the folder name, a `/`, and `.gitkeep` (for example `portraits/.gitkeep`). Click **Commit changes**.
-  2. Upload photos into the new folder.
-  3. Add an entry to `_data/menu.yml` with `title`, `url`, and `folder`, the same as the People entry.
+- To move a menu item, move all its lines together.
+- To move an item into the "..." list, add the line `  extra: true`. To move it back into the menu bar, delete that line.
+- About is a normal page, not a gallery. Its item has no `folder`. See [Change the About page](#change-the-about-page).
+- On phones, the full-screen menu shows the "..." items below the other items.
+
+To add a gallery (for example Italy):
+
+1. Make the four column folders. Open `assets/images`, click **Add file**, then **Create new file**. Type `italy/column-1/.gitkeep` as the file name and click **Commit changes**. Do the same for `italy/column-2/.gitkeep`, `italy/column-3/.gitkeep`, and `italy/column-4/.gitkeep`.
+2. Upload photos into the column folders (see [Add photos](#add-photos)).
+3. Add an item to `_data/menu.yml`, for example:
+
+   ```yaml
+   - title: Italy
+     url: /italy/
+     folder: italy
+     extra: true
+   ```
 
 ## If a photo does not appear
 
@@ -173,7 +180,7 @@ Do these checks:
 
 1. Open the **Actions** tab. Make sure the newest run is green. If it is still running (yellow), wait for it to finish.
 2. Reload the page in the browser. If the old page still shows, force a full reload: **Cmd-Shift-R** on a Mac, **Ctrl-F5** on Windows. Browsers keep parts of the site for up to 10 minutes.
-3. For the homepage: make sure the photo is in one of the four column folders, `assets/images/home/column-1/` to `column-4/`, not directly in `assets/images/home/`.
+3. Make sure the photo is in a column folder (`column-1` to `column-4`), not directly in the page folder. Click the newest run in **Actions**, then **build**, to see a warning for each photo outside a column folder.
 
 ## Settings (rare changes)
 
