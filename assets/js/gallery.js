@@ -69,7 +69,7 @@
 			// Themed galleries (data-order="columns") read down each column,
 			// with the breaks balanced by height (see balancedColumns).
 			// Otherwise, at 4 columns, honor the curated column from
-			// _data/home.yml (data-col) so the YAML is reproduced exactly
+			// assets/images/home/column-N (data-col) so the folders are reproduced exactly
 			// even when its columns have unequal lengths; else deal round-robin.
 			var target;
 			if (byColumn) {
